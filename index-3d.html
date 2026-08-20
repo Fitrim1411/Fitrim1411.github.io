@@ -5,92 +5,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fitri Maharani | Into the Quiet Machine</title>
 <meta name="description" content="An interactive 3D portfolio experience by Fitri Maharani, iOS & AI/ML developer.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌫️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#454f45;--mist:#5e6b5c;--deep:#2b332c;
-  --t1:#f1f3ec;--t2:#c3ccbc;--t3:#8f9a8b;
-  --card:#f4f2ea;--ink:#20261f
-}
+:root{--t1:#f4f6ef;--t2:#cdd5c6;--t3:#9aa694;--card:#f5f3ec;--ink:#1e241d}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden}
+body{font-family:'Inter',sans-serif;color:var(--t1);overflow-x:hidden;
+  background:linear-gradient(to bottom,#aab5a0 0%,#8d9a86 26%,#65735f 52%,#3d473a 78%,#232a21 100%);
+  background-attachment:fixed}
 
 #scene{position:fixed;inset:0;z-index:0}
 #veil{position:fixed;inset:0;z-index:1;pointer-events:none;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 18%,rgba(150,166,146,.30),transparent 65%),
-    linear-gradient(to bottom,rgba(94,107,92,.30) 0%,transparent 32%,rgba(43,51,44,.55) 100%)}
+    radial-gradient(ellipse 46% 30% at 62% 6%,rgba(246,248,236,.55),transparent 70%),
+    linear-gradient(to right,rgba(26,32,25,.62) 0%,rgba(26,32,25,.22) 42%,transparent 68%),
+    linear-gradient(to bottom,transparent 55%,rgba(20,26,19,.5) 100%)}
 
-#load{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--bg);transition:opacity 1s}
+#load{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:#39433a;transition:opacity 1s}
 #load.done{opacity:0;pointer-events:none}
-#load .lb{width:170px;height:1px;background:rgba(241,243,236,.18);overflow:hidden}
+#load .lb{width:170px;height:1px;background:rgba(244,246,239,.2);overflow:hidden}
 #load .lf{height:100%;width:0;background:var(--t1);transition:width .35s}
 #load p{margin-top:1.1rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--t3);text-align:center}
 
 nav{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:20;
   display:flex;align-items:center;gap:.15rem;padding:.3rem;border-radius:999px;
-  background:rgba(35,42,35,.42);border:1px solid rgba(241,243,236,.10);backdrop-filter:blur(16px)}
+  background:rgba(28,34,27,.42);border:1px solid rgba(244,246,239,.13);backdrop-filter:blur(16px)}
 nav .brand{display:grid;place-items:center;width:1.95rem;height:1.95rem;border-radius:999px;background:var(--card);color:var(--ink);font-size:.9rem}
 nav a{padding:.45rem .85rem;border-radius:999px;color:var(--t2);text-decoration:none;
   font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;transition:color .3s,background .3s;white-space:nowrap}
-nav a:hover,nav a.on{color:var(--t1);background:rgba(241,243,236,.13)}
+nav a:hover,nav a.on{color:var(--t1);background:rgba(244,246,239,.15)}
 
 main{position:relative;z-index:10}
 section{min-height:100vh;display:flex;align-items:center;padding:7rem 6vw 5rem}
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;width:100%;max-width:1250px;margin:0 auto}
 
-h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.3rem,5.6vw,4.3rem);font-weight:600;line-height:1.06;letter-spacing:-.022em}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.3rem,5.6vw,4.3rem);font-weight:600;line-height:1.06;letter-spacing:-.022em;text-shadow:0 2px 30px rgba(20,26,19,.55)}
 h1 .ln{display:block;overflow:hidden}
 h1 .ln i{display:block;font-style:normal;transform:translateY(112%);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
 .ready h1 .ln i{transform:none}
 h1 .ln:nth-child(2) i{transition-delay:.13s}
-.tag{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--t3);margin-bottom:1.5rem}
-.lede{color:var(--t2);font-weight:300;line-height:1.8;font-size:.95rem;max-width:33ch;margin:1.9rem 0 2.2rem}
+.tag{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--t2);margin-bottom:1.5rem}
+.lede{color:var(--t2);font-weight:300;line-height:1.8;font-size:.95rem;max-width:33ch;margin:1.9rem 0 2.2rem;text-shadow:0 1px 16px rgba(20,26,19,.5)}
 .cta{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.6rem;border-radius:999px;
   background:var(--card);color:var(--ink);text-decoration:none;font-size:.9rem;font-weight:500;
   transition:transform .35s,box-shadow .35s}
-.cta:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(20,28,20,.45)}
-.cta.ghost{background:rgba(35,42,35,.5);color:var(--t1);border:1px solid rgba(241,243,236,.16);backdrop-filter:blur(12px);margin-left:.55rem}
+.cta:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(16,22,16,.5)}
+.cta.ghost{background:rgba(28,34,27,.45);color:var(--t1);border:1px solid rgba(244,246,239,.2);backdrop-filter:blur(12px);margin-left:.55rem}
 
 .floats{position:relative;height:min(74vh,600px)}
 .gc{position:absolute;border-radius:22px;padding:1rem;background:var(--card);color:var(--ink);
-  box-shadow:0 30px 70px rgba(18,24,18,.5);opacity:0;transform:translateY(28px);transition:opacity 1s}
+  box-shadow:0 30px 70px rgba(14,20,14,.55);opacity:0;transition:opacity 1s}
 .ready .gc{opacity:1}
-.gc .k{font-size:.67rem;color:#77806f;letter-spacing:.05em}
+.gc .k{font-size:.67rem;color:#78806f;letter-spacing:.05em}
 .gc .v{font-family:'Space Grotesk',sans-serif;font-size:1.12rem;font-weight:600;line-height:1.3;margin-top:.15rem}
 .gc .thumb{height:100px;border-radius:14px;margin-bottom:.8rem;display:grid;place-items:center;font-size:1.9rem;
-  background:linear-gradient(150deg,#7d8f76,#495442)}
+  background:linear-gradient(150deg,#8b9a83,#404a3c)}
 .gc.c1{top:1%;right:6%;width:250px}
 .gc.c2{top:46%;right:34%;width:224px}
 .gc.c3{bottom:1%;right:1%;width:240px}
-.stat{position:absolute;color:var(--t2);font-size:.71rem;line-height:1.5;opacity:0;transition:opacity 1.2s}
+.stat{position:absolute;color:var(--t2);font-size:.71rem;line-height:1.5;opacity:0;transition:opacity 1.2s;text-shadow:0 1px 14px rgba(20,26,19,.6)}
 .ready .stat{opacity:1}
 .stat b{display:block;font-family:'Space Grotesk',sans-serif;color:var(--t1);font-size:1rem;font-weight:600}
 .stat.s1{top:14%;left:0}
 .stat.s2{top:64%;left:6%}
 
 .panel{max-width:1100px;margin:0 auto;width:100%}
-.slab{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--t3);margin-bottom:1rem}
-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.85rem,4vw,2.9rem);font-weight:600;line-height:1.14;letter-spacing:-.02em;margin-bottom:2.5rem}
+.slab{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--t2);margin-bottom:1rem}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.85rem,4vw,2.9rem);font-weight:600;line-height:1.14;letter-spacing:-.02em;margin-bottom:2.5rem;text-shadow:0 2px 24px rgba(20,26,19,.5)}
 .rev{opacity:0;transform:translateY(32px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
 .rev.in{opacity:1;transform:none}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1.2rem}
-.pcard{padding:1.6rem;border-radius:20px;background:rgba(35,42,35,.45);border:1px solid rgba(241,243,236,.09);
-  backdrop-filter:blur(16px);transition:transform .45s,border-color .45s,background .45s}
-.pcard:hover{transform:translateY(-6px);border-color:rgba(241,243,236,.3);background:rgba(35,42,35,.62)}
+.pcard{padding:1.6rem;border-radius:20px;background:rgba(26,32,25,.5);border:1px solid rgba(244,246,239,.1);
+  backdrop-filter:blur(18px);transition:transform .45s,border-color .45s,background .45s}
+.pcard:hover{transform:translateY(-6px);border-color:rgba(244,246,239,.32);background:rgba(26,32,25,.68)}
 .pcard .ico{font-size:1.4rem}
 .pcard h3{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:600;margin:.7rem 0 .5rem;line-height:1.35}
 .pcard p{color:var(--t2);font-size:.84rem;line-height:1.7;font-weight:300}
 .pcard .tg{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
-.pcard .tg span{padding:.2rem .55rem;border-radius:4px;background:rgba(241,243,236,.09);color:var(--t2);font-size:.67rem}
+.pcard .tg span{padding:.2rem .55rem;border-radius:4px;background:rgba(244,246,239,.1);color:var(--t2);font-size:.67rem}
 .clist{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:2rem}
-.clist a{padding:.75rem 1.3rem;border-radius:999px;border:1px solid rgba(241,243,236,.16);
-  color:var(--t1);text-decoration:none;font-size:.85rem;background:rgba(35,42,35,.42);backdrop-filter:blur(12px);transition:border-color .3s,background .3s}
-.clist a:hover{border-color:rgba(241,243,236,.45);background:rgba(35,42,35,.65)}
+.clist a{padding:.75rem 1.3rem;border-radius:999px;border:1px solid rgba(244,246,239,.18);
+  color:var(--t1);text-decoration:none;font-size:.85rem;background:rgba(26,32,25,.45);backdrop-filter:blur(12px);transition:border-color .3s,background .3s}
+.clist a:hover{border-color:rgba(244,246,239,.5);background:rgba(26,32,25,.7)}
 .back{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:20;
-  padding:.6rem 1.2rem;border-radius:999px;background:rgba(35,42,35,.5);border:1px solid rgba(241,243,236,.12);
+  padding:.6rem 1.2rem;border-radius:999px;background:rgba(26,32,25,.55);border:1px solid rgba(244,246,239,.14);
   backdrop-filter:blur(14px);color:var(--t2);text-decoration:none;font-size:.74rem;transition:color .3s}
 .back:hover{color:var(--t1)}
 
@@ -109,7 +108,7 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.85rem,4vw,2.9rem);fo
 </head>
 <body>
 
-<div id="load"><div><div class="lb"><div class="lf"></div></div><p>Growing the scene</p></div></div>
+<div id="load"><div><div class="lb"><div class="lf"></div></div><p>Clearing the mist</p></div></div>
 <canvas id="scene"></canvas>
 <div id="veil"></div>
 
@@ -181,92 +180,88 @@ document.getElementById('pg').innerHTML=PROJECTS.map(p=>
   '<article class="pcard rev"><div class="ico">'+p.ico+'</div><h3>'+p.t+'</h3><p>'+p.d+'</p>'+
   '<div class="tg">'+p.g.map(g=>'<span>'+g+'</span>').join('')+'</div></article>').join('');
 
-// ════════ SCENE: misty grove ════════
+// ════════ SCENE: layered misty ridges ════════
 const MOBILE=innerWidth<900;
 const cv=document.getElementById('scene');
-const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:!MOBILE});
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,MOBILE?1.5:2));
 renderer.setSize(innerWidth,innerHeight);
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 
-const MIST=new THREE.Color(0x53604f);
 const scene=new THREE.Scene();
-scene.background=MIST;
-scene.fog=new THREE.FogExp2(MIST.getHex(),0.055);
+const FOV=45;
+const cam=new THREE.PerspectiveCamera(FOV,innerWidth/innerHeight,.1,400);
+cam.position.set(0,0,16);
 
-const cam=new THREE.PerspectiveCamera(46,innerWidth/innerHeight,.1,180);
-cam.position.set(0,1.1,13);
+// deterministic pseudo-random so the ridgeline never reshuffles
+function rng(seed){let s=seed;return()=>{s=(s*16807)%2147483647;return(s-1)/2147483646;};}
 
-// light: soft overcast daylight
-scene.add(new THREE.HemisphereLight(0xdbe4d2,0x1e261d,1.45));
-const key=new THREE.DirectionalLight(0xf0f4e6,1.5);
-key.position.set(-6,10,7); scene.add(key);
-const rim=new THREE.DirectionalLight(0x9fb096,.5);
-rim.position.set(7,3,-6); scene.add(rim);
-
-// ── branch skeletons ──
-function branchCurve(pts){return new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)));}
-const BRANCHES=[
-  {c:branchCurve([[-17,-4.6,-3],[-10,-3.0,-1],[-4,-3.6,1.2],[2,-2.4,.4],[8,-3.4,-1.4],[15,-2.2,-3.5]]),r:.85},
-  {c:branchCurve([[-15,-8.5,2.5],[-8,-6.6,3.4],[-1,-7.4,2.2],[6,-6.0,3.0],[14,-7.2,1.5]]),r:1.15},
-  {c:branchCurve([[-9,-1.2,-7],[-4,.4,-6.2],[1,-.6,-5.4],[7,.9,-6.6],[13,.1,-7.4]]),r:.42},
-];
-const barkMat=new THREE.MeshStandardMaterial({color:0x3a4436,roughness:1,metalness:0});
-const group=new THREE.Group(); scene.add(group);
-BRANCHES.forEach(b=>{
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(b.c,MOBILE?90:180,b.r,MOBILE?10:16,false),barkMat));
-});
-
-// ── moss: thousands of tiny clumps hugging each branch ──
-const TOTAL=MOBILE?4200:11000;
-const clump=new THREE.IcosahedronGeometry(1,0);
-const mossMat=new THREE.MeshStandardMaterial({roughness:1,metalness:0,flatShading:true});
-const moss=new THREE.InstancedMesh(clump,mossMat,TOTAL);
-const dummy=new THREE.Object3D(), col=new THREE.Color();
-const GREENS=[0x6f8a4e,0x5c7a42,0x89a45f,0x47612f,0x7d9a55];
-let n=0;
-BRANCHES.forEach((b,bi)=>{
-  const share=Math.round(TOTAL*(bi===2?.16:bi===1?.40:.44));
-  const SEG=400, fr=b.c.computeFrenetFrames(SEG,false);
-  for(let i=0;i<share&&n<TOTAL;i++,n++){
-    const t=Math.random(), idx=Math.min(Math.floor(t*SEG),SEG-1);
-    const P=b.c.getPointAt(t), N=fr.normals[idx], B=fr.binormals[idx];
-    const a=Math.random()*Math.PI*2;
-    // moss grows thicker on top of the branch
-    const top=Math.max(0,Math.sin(a));
-    const rr=b.r*(0.94+Math.random()*0.16+top*0.20);
-    dummy.position.set(
-      P.x+(N.x*Math.cos(a)+B.x*Math.sin(a))*rr,
-      P.y+(N.y*Math.cos(a)+B.y*Math.sin(a))*rr,
-      P.z+(N.z*Math.cos(a)+B.z*Math.sin(a))*rr
-    );
-    dummy.rotation.set(Math.random()*3,Math.random()*3,Math.random()*3);
-    const s=(0.035+Math.random()*0.075)*(1+top*0.5);
-    dummy.scale.set(s,s*(0.7+Math.random()*0.7),s);
-    dummy.updateMatrix();
-    moss.setMatrixAt(n,dummy.matrix);
-    // a few pale flowers scattered through the moss
-    col.setHex(Math.random()<0.035?0xe6ecdc:GREENS[(Math.random()*GREENS.length)|0]);
-    col.offsetHSL(0,0,(Math.random()-0.5)*0.07);
-    moss.setColorAt(n,col);
+// one ridge = a jagged skyline of conifer silhouettes, filled solid below
+function ridge(width,baseY,amp,treeH,seed){
+  const r=rng(seed), pts=[];
+  let x=-width/2;
+  while(x<width/2){
+    const h=baseY
+      +Math.sin(x*0.055+seed)*amp
+      +Math.sin(x*0.148+seed*1.7)*amp*0.42
+      +Math.sin(x*0.31+seed*2.3)*amp*0.17;
+    const th=treeH*(0.55+r()*0.9);       // tinggi pohon
+    const tw=th*(0.34+r()*0.20);         // lebar ikut tinggi, biar proporsinya pohon
+    pts.push(new THREE.Vector2(x,h));
+    pts.push(new THREE.Vector2(x+tw*0.5,h+th));
+    pts.push(new THREE.Vector2(x+tw,h));
+    x+=tw+th*(0.10+r()*0.55);            // jarak antarpohon
   }
-});
-moss.count=n;                 // buang sisa instance yang tak terpakai
-moss.instanceMatrix.needsUpdate=true;
-if(moss.instanceColor) moss.instanceColor.needsUpdate=true;
-group.add(moss);
+  const shape=new THREE.Shape();
+  shape.moveTo(pts[0].x,pts[0].y);
+  for(let k=1;k<pts.length;k++) shape.lineTo(pts[k].x,pts[k].y);
+  shape.lineTo(pts[pts.length-1].x,-120);
+  shape.lineTo(pts[0].x,-120);
+  shape.closePath();
+  return new THREE.ShapeGeometry(shape);
+}
 
-// ── drifting spores ──
-const NP=MOBILE?260:600, pp=new Float32Array(NP*3), sp=new Float32Array(NP);
+// far (pale, hazy) → near (dark, sharp)
+const LAYERS=MOBILE?6:8;
+const FAR=new THREE.Color(0xa9b5a1), NEAR=new THREE.Color(0x161c15);
+const ridges=[];
+for(let i=0;i<LAYERS;i++){
+  const f=i/(LAYERS-1);                    // 0 = farthest
+  const z=-58+f*58;                        // -58 … 0
+  const dist=cam.position.z-z;
+  const halfW=Math.tan(THREE.MathUtils.degToRad(FOV/2))*dist*(innerWidth/innerHeight);
+  const g=ridge(halfW*2.9, -2.0-f*3.5, 0.55+f*0.75, 2.15+f*0.35, 97+i*53);
+  const m=new THREE.MeshBasicMaterial({color:FAR.clone().lerp(NEAR,Math.pow(f,0.78)),fog:false});
+  const mesh=new THREE.Mesh(g,m);
+  mesh.position.z=z;
+  mesh.userData.drift=(0.4+f*1.6)*(i%2?1:-1);
+  scene.add(mesh); ridges.push(mesh);
+}
+
+// mist bands sitting between the ridges
+const bands=[];
+for(let i=0;i<(MOBILE?3:5);i++){
+  const f=i/4, z=-48+f*44;
+  const dist=cam.position.z-z;
+  const halfW=Math.tan(THREE.MathUtils.degToRad(FOV/2))*dist*(innerWidth/innerHeight);
+  const b=new THREE.Mesh(
+    new THREE.PlaneGeometry(halfW*3,8+f*7),
+    new THREE.MeshBasicMaterial({color:0xcad4c2,transparent:true,opacity:.13+f*.05,depthWrite:false,fog:false})
+  );
+  b.position.set(0,-3.4-f*3.2,z+1.2);
+  scene.add(b); bands.push(b);
+}
+
+// airborne motes
+const NP=MOBILE?200:520, pp=new Float32Array(NP*3), sp=new Float32Array(NP);
 for(let i=0;i<NP;i++){
-  pp[i*3]=(Math.random()-.5)*34; pp[i*3+1]=(Math.random()-.5)*20; pp[i*3+2]=(Math.random()-.5)*16;
-  sp[i]=.1+Math.random()*.5;
+  pp[i*3]=(Math.random()-.5)*54; pp[i*3+1]=(Math.random()-.5)*26; pp[i*3+2]=-Math.random()*40;
+  sp[i]=.1+Math.random()*.55;
 }
 const pgeo=new THREE.BufferGeometry();
 pgeo.setAttribute('position',new THREE.BufferAttribute(pp,3));
-const spores=new THREE.Points(pgeo,new THREE.PointsMaterial({
-  size:.062,color:0xeef2e6,transparent:true,opacity:.85,sizeAttenuation:true,depthWrite:false}));
-scene.add(spores);
+scene.add(new THREE.Points(pgeo,new THREE.PointsMaterial({
+  size:.11,color:0xf2f5ea,transparent:true,opacity:.6,sizeAttenuation:true,depthWrite:false,fog:false})));
 
 // ── interaction ──
 let mx=0,my=0,tx=0,ty=0,sy=0;
@@ -281,27 +276,31 @@ const floats=[...document.querySelectorAll('[data-d]')];
 const clock=new THREE.Clock();
 function frame(){
   const t=clock.getElapsedTime();
+
   const P=pgeo.attributes.position.array;
   for(let i=0;i<NP;i++){
-    P[i*3+1]+=sp[i]*.0055;
-    P[i*3]+=Math.sin(t*.32+i)*.0016;
-    if(P[i*3+1]>11) P[i*3+1]=-11;
+    P[i*3]+=Math.sin(t*.22+i)*.0042+.004;
+    P[i*3+1]+=sp[i]*.0035;
+    if(P[i*3]>27) P[i*3]=-27;
+    if(P[i*3+1]>13) P[i*3+1]=-13;
   }
   pgeo.attributes.position.needsUpdate=true;
 
-  // whole grove breathes, as if in a light breeze
-  group.rotation.z=Math.sin(t*.16)*.007;
-  group.position.y=Math.sin(t*.24)*.06;
+  ridges.forEach(m=>{m.position.x=Math.sin(t*.028*m.userData.drift)*1.5;});
+  bands.forEach((b,i)=>{
+    b.position.x=Math.sin(t*.035+i)*3.4;
+    b.material.opacity=(.13+i*.04)+Math.sin(t*.3+i*1.4)*.035;
+  });
 
-  tx+=(mx*.9-tx)*.04; ty+=(-my*.5-ty)*.04;
+  // parallax: near ridges swing far more than distant ones
+  tx+=(mx*1.5-tx)*.04; ty+=(-my*.7-ty)*.04;
   const prog=Math.min(sy/innerHeight,2.4);
-  cam.position.x=tx; cam.position.y=1.1+ty+prog*1.9;
-  cam.position.z=13-prog*2.2;
-  cam.lookAt(tx*.35,-1.1+prog*1.4,0);
+  cam.position.x=tx; cam.position.y=ty+prog*2.6;
+  cam.rotation.y=-tx*.012; cam.rotation.x=ty*.008;
 
   floats.forEach(el=>{
     const d=+el.dataset.d;
-    el.style.transform='translate3d('+(-tx*d)+'px,'+(ty*d*.7+Math.sin(t*.5+d)*4)+'px,0)';
+    el.style.transform='translate3d('+(-tx*d*.6)+'px,'+(ty*d*.5+Math.sin(t*.5+d)*4)+'px,0)';
   });
 
   renderer.render(scene,cam);
