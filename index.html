@@ -331,13 +331,13 @@ section{padding:8rem 3rem;position:relative;z-index:2}
 
 /* Research */
 .rg{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.rc{padding:2rem;background:var(--bg2);border:1px solid rgba(124,106,239,.08);border-radius:16px;transition:border-color .3s,transform .3s}
+.rc{display:block;color:inherit;text-decoration:none;padding:2rem;background:var(--bg2);border:1px solid rgba(124,106,239,.08);border-radius:16px;transition:border-color .3s,transform .3s}
 .rc:hover{border-color:var(--ac);transform:translateY(-4px)}
 .rty{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:.75rem;font-weight:500}
 .rty.amber{color:var(--amber)}.rty.teal{color:var(--teal)}
 .rc h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;margin-bottom:.75rem;line-height:1.4}
 .rc p{color:var(--t2);font-size:.88rem;line-height:1.6;margin-bottom:1rem;font-weight:300}
-.rc a{color:var(--ac);text-decoration:none;font-size:.85rem;transition:color .3s}.rc a:hover{color:var(--t1)}
+.rc .rl{display:inline-block;color:var(--ac);font-size:.85rem;transition:color .3s}.rc:hover .rl{color:var(--t1)}
 
 /* Contact */
 .cw{max-width:650px}
@@ -493,7 +493,7 @@ document.getElementById('projectsC').innerHTML=
 // RESEARCH
 let rh='';
 C.research.papers.forEach(p=>{
-  rh+='<div class="rc"><div class="rty '+p.color+'">'+p.type+'</div><h3>'+p.title+'</h3><p>'+p.description+'</p><a href="'+p.link+'" target="_blank" rel="noopener">'+p.linkText+'</a></div>';
+  rh+='<a href="'+p.link+'" target="_blank" rel="noopener" class="rc"><div class="rty '+p.color+'">'+p.type+'</div><h3>'+p.title+'</h3><p>'+p.description+'</p><span class="rl">'+p.linkText+'</span></a>';
 });
 document.getElementById('researchC').innerHTML='<div class="sl2">Research</div><h2 class="st">'+C.research.title+'</h2><div class="rg">'+rh+'</div>';
 
