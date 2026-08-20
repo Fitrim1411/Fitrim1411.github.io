@@ -1,2 +1,5 @@
 .DS_Store
 Thumbs.db
+
+# video referensi, jangan ikut ke repo
+*.mp4
