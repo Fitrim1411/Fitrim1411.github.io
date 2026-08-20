@@ -255,7 +255,7 @@ const mat=new THREE.ShaderMaterial({
   uniforms:{
     uMix:{value:0}, uTime:{value:0},
     uMouse:{value:new THREE.Vector3(999,999,0)},
-    uSize:{value:(MOBILE?2.0:2.4)*Math.min(devicePixelRatio,2)}
+    uSize:{value:(MOBILE?1.6:1.9)*Math.min(devicePixelRatio,2)}
   },
   vertexShader:[
     'attribute vec3 aA; attribute vec3 aB; attribute vec3 aColor; attribute float aRand;',
@@ -271,9 +271,9 @@ const mat=new THREE.ShaderMaterial({
     '  float dist = length(diff);',
     '  float force = smoothstep(2.3, 0.0, dist);',
     '  p.xy += normalize(diff + vec2(0.0001)) * force * 1.35;',
-    '  vColor = mix(aColor, vec3(1.0), force*0.55);',
+    '  vColor = mix(aColor, vec3(1.0), force*0.40);',
     '  vec4 mv = modelViewMatrix * vec4(p,1.0);',
-    '  gl_PointSize = uSize * (34.0 / max(0.4,-mv.z));',
+    '  gl_PointSize = uSize * (9.6 / max(0.4,-mv.z));',
     '  vFade = clamp(1.0 - (-mv.z - 4.0)/16.0, 0.12, 1.0);',
     '  gl_Position = projectionMatrix * mv;',
     '}'
@@ -285,7 +285,7 @@ const mat=new THREE.ShaderMaterial({
     '  float d = length(c);',
     '  if(d > 0.5) discard;',
     '  float a = smoothstep(0.5, 0.05, d);',
-    '  gl_FragColor = vec4(vColor, a * vFade * 0.62);',
+    '  gl_FragColor = vec4(vColor, a * vFade * 0.30);',
     '}'
   ].join('\n')
 });
@@ -303,7 +303,7 @@ if(!MOBILE){
     ]);
     composer=new ec.EffectComposer(renderer);
     composer.addPass(new rp.RenderPass(scene,cam));
-    composer.addPass(new ub.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.82,0.5,0.06));
+    composer.addPass(new ub.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.38,0.45,0.34));
     composer.setSize(innerWidth,innerHeight);
   }catch(err){ composer=null; }   // bloom gagal dimuat -> tetap jalan tanpa bloom
 }
