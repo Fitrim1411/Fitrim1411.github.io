@@ -17,8 +17,6 @@
   </script>
 </head>
 <body>
-<canvas id="fx"></canvas>
-<div id="veil"></div>
 <script>
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  🎯 EDIT SEMUA DI SINI — Save, refresh browser, done.      ║
@@ -279,14 +277,13 @@ nav{position:fixed;top:0;left:0;right:0;padding:1.5rem 3rem;display:flex;justify
 .hsh{position:absolute;bottom:2rem;left:3rem;display:flex;align-items:center;gap:.5rem;color:var(--t3);font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
 .slx{width:1px;height:50px;background:linear-gradient(to bottom,var(--ac),transparent);animation:sp 2s ease-in-out infinite}
 @keyframes sp{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
-.hs{position:absolute;top:0;right:0;width:50%;height:100%;z-index:1;overflow:hidden}
+/* tanpa z-index, biar tidak bikin stacking context sendiri: blend canvas harus
+   sampai ke latar halaman, kalau terkurung di sini hitamnya muncul lagi */
+.hs{position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden}
 .sh{position:absolute;border-radius:50%;opacity:.06;filter:blur(60px)}
-/* Canvas menempel di viewport, jadi partikel ikut sepanjang halaman saat scroll.
-   mix-blend-mode:screen bikin hitamnya hilang, tanpa itu bloom menulis alpha penuh
-   dan canvas-nya tampak sebagai kotak hitam. */
-#fx{position:fixed;inset:0;z-index:0;display:block;pointer-events:none;mix-blend-mode:screen;opacity:0;transition:opacity 1.4s ease}
-#veil{position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(6,8,15,.94) 0%,rgba(6,8,15,.72) 34%,rgba(6,8,15,.15) 62%,transparent 78%)}
+/* mix-blend-mode:screen bikin hitam canvas hilang. Tanpa ini bloom menulis alpha
+   penuh, jadi canvas-nya tampak sebagai kotak hitam yang menutupi blob di belakang. */
+#fx{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease}
 .s1{width:400px;height:400px;background:var(--ac);top:20%;right:10%;animation:fl 8s ease-in-out infinite}
 .s2{width:250px;height:250px;background:var(--coral);top:50%;right:30%;animation:fl 6s ease-in-out infinite reverse}
 .s3{width:300px;height:300px;background:var(--teal);top:10%;right:40%;animation:fl 10s ease-in-out infinite}
@@ -440,7 +437,7 @@ footer{padding:3rem;border-top:1px solid rgba(124,106,239,.08);display:flex;just
 </nav>
 
 <section class="hero">
-  <div class="hs"><div class="sh s1"></div><div class="sh s2"></div><div class="sh s3"></div></div>
+  <div class="hs"><div class="sh s1"></div><div class="sh s2"></div><div class="sh s3"></div><canvas id="fx"></canvas></div>
   <div class="hero-c" id="heroC"></div>
   <div class="hsh"><div class="slx"></div><span>Scroll</span></div>
 </section>
@@ -637,26 +634,7 @@ try{
   const {initParticles,MOBILE,REDUCED}=await import('./particles.js');
   if(!MOBILE && !REDUCED){
     const cv=document.getElementById('fx');
-    let sy=0, tx=0, ty=0;
-    addEventListener('scroll',()=>{sy=scrollY;},{passive:true});
-    const BASE=.30;
-
-    await initParticles(cv,{
-      count:60000, camZ:10, alpha:BASE,
-      // Objek ditaruh di ruang kosong kanan biar tidak menabrak teks.
-      onFrame(t,{cam,core,mat,mouse}){
-        const {mx,my}=mouse();
-        tx+=(mx*.5-tx)*.04; ty+=(-my*.35-ty)*.04;
-        cam.position.x=tx; cam.position.y=ty;
-
-        // Turun halaman: objek geser ke kanan, mengecil, meredup jadi latar.
-        const p=Math.min(sy/innerHeight,1);
-        core.position.x=3.6+p*1.4;
-        core.position.y=-p*.8;
-        core.scale.setScalar(1-p*.28);
-        mat.uniforms.uAlpha.value=BASE*(1-p*.5);
-      }
-    });
+    await initParticles(cv,{count:45000,camZ:11,alpha:.26});
     cv.style.opacity='1';
   }
 }catch(e){}
