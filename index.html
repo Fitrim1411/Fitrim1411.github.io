@@ -284,6 +284,9 @@ nav{position:fixed;top:0;left:0;right:0;padding:1.5rem 3rem;display:flex;justify
 /* mix-blend-mode:screen bikin hitam canvas hilang. Tanpa ini bloom menulis alpha
    penuh, jadi canvas-nya tampak sebagai kotak hitam yang menutupi blob di belakang. */
 #fx{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease}
+/* hero kena aturan section{z-index:2} di bawah, dan itu bikin stacking context
+   sendiri sehingga blend canvas terkurung. Harus auto biar blend sampai ke latar. */
+section.hero{z-index:auto}
 .s1{width:400px;height:400px;background:var(--ac);top:20%;right:10%;animation:fl 8s ease-in-out infinite}
 .s2{width:250px;height:250px;background:var(--coral);top:50%;right:30%;animation:fl 6s ease-in-out infinite reverse}
 .s3{width:300px;height:300px;background:var(--teal);top:10%;right:40%;animation:fl 10s ease-in-out infinite}
