@@ -165,7 +165,7 @@ export async function initParticles(canvas, opt={}){
   // mouse dihitung relatif ke canvas, bukan ke layar
   let mx=0,my=0,hasMouse=false;
   const mouseWorld=new THREE.Vector3(999,999,0);
-  const AWAY=new THREE.Vector3(999,999,0);
+  const AWAY=new THREE.Vector3(999,999,0), tmpV=new THREE.Vector3();
   addEventListener('mousemove',e=>{
     const r=canvas.getBoundingClientRect();
     mx=((e.clientX-r.left)/r.width-.5)*2;
@@ -189,7 +189,11 @@ export async function initParticles(canvas, opt={}){
     const dt=Math.min(clock.getDelta(),.05), t=clock.getElapsedTime();
     advance(dt);
     mat.uniforms.uTime.value=t;
-    mat.uniforms.uMouse.value.copy(hasMouse?mouseWorld:AWAY);
+    // shader membandingkan di ruang lokal, jadi mouse ikut digeser/diskalakan objek
+    if(hasMouse){
+      core.updateWorldMatrix(true,false);
+      mat.uniforms.uMouse.value.copy(core.worldToLocal(tmpV.copy(mouseWorld)));
+    }else mat.uniforms.uMouse.value.copy(AWAY);
     core.rotation.y=t*.055;
     core.rotation.x=Math.sin(t*.14)*.13;
     if(onFrame) onFrame(t,api);
