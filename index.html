@@ -12,6 +12,9 @@
   <meta property="og:url" content="https://fitrim1411.github.io/">
   <meta name="twitter:card" content="summary_large_image">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script type="importmap">
+  {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+  </script>
 </head>
 <body>
 <script>
@@ -276,6 +279,7 @@ nav{position:fixed;top:0;left:0;right:0;padding:1.5rem 3rem;display:flex;justify
 @keyframes sp{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
 .hs{position:absolute;top:0;right:0;width:50%;height:100%;z-index:1;overflow:hidden}
 .sh{position:absolute;border-radius:50%;opacity:.06;filter:blur(60px)}
+#fx{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.2s ease}
 .s1{width:400px;height:400px;background:var(--ac);top:20%;right:10%;animation:fl 8s ease-in-out infinite}
 .s2{width:250px;height:250px;background:var(--coral);top:50%;right:30%;animation:fl 6s ease-in-out infinite reverse}
 .s3{width:300px;height:300px;background:var(--teal);top:10%;right:40%;animation:fl 10s ease-in-out infinite}
@@ -402,7 +406,7 @@ footer{padding:3rem;border-top:1px solid rgba(124,106,239,.08);display:flex;just
 @media(max-width:768px){
   body{cursor:auto}.cur,.spot{display:none}nav{padding:1rem 1.5rem}.nl{display:none}.mt{display:flex}
   .nl.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg);padding:2rem 1.5rem;border-bottom:1px solid rgba(124,106,239,.1)}
-  .hero{padding:0 1.5rem}.hero h1{letter-spacing:-1px}.hs{width:100%;opacity:.5}.hsh{left:1.5rem}
+  .hero{padding:0 1.5rem}.hero h1{letter-spacing:-1px}.hs{width:100%;opacity:.5}.hsh{left:1.5rem}#fx{display:none}
   section{padding:4rem 1.5rem}.ag{grid-template-columns:1fr;gap:2rem}.as{position:relative;bottom:0;right:0;margin-top:1rem}
   .pfi{grid-template-columns:1fr}.pf .pi2{min-height:200px}.pg{grid-template-columns:1fr}
   .pc:nth-child(even){transform:none}.pc:nth-child(even):hover{transform:translateY(-8px)}
@@ -429,7 +433,7 @@ footer{padding:3rem;border-top:1px solid rgba(124,106,239,.08);display:flex;just
 </nav>
 
 <section class="hero">
-  <div class="hs"><div class="sh s1"></div><div class="sh s2"></div><div class="sh s3"></div></div>
+  <div class="hs"><div class="sh s1"></div><div class="sh s2"></div><div class="sh s3"></div><canvas id="fx"></canvas></div>
   <div class="hero-c" id="heroC"></div>
   <div class="hsh"><div class="slx"></div><span>Scroll</span></div>
 </section>
@@ -618,6 +622,18 @@ document.querySelectorAll('.scr').forEach((el,i)=>{const fx=new TS(el);setTimeou
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active');});},{threshold:.15});
 document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
 document.querySelectorAll('.nl a').forEach(a=>{a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));});
+</script>
+
+<script type="module">
+// Partikel di hero. Kalau gagal dimuat, blob blur di belakangnya tetap tampil.
+try{
+  const {initParticles,MOBILE,REDUCED}=await import('./particles.js');
+  if(!MOBILE && !REDUCED){
+    const cv=document.getElementById('fx');
+    await initParticles(cv,{count:45000,camZ:11,alpha:.26});
+    cv.style.opacity='1';
+  }
+}catch(e){}
 </script>
 </body>
 </html>
