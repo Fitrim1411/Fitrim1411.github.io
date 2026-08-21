@@ -1,37 +1,76 @@
 // Partikel morphing. Dipakai index.html (hero) dan index-3d.html (layar penuh).
 import * as THREE from 'three';
 
-// ── lima bentuk target ──
-function shapeSphere(i,n,out,o){
-  const GA=Math.PI*(3-Math.sqrt(5)), R=3.0;
-  const y=1-(i/(n-1))*2, r=Math.sqrt(Math.max(0,1-y*y)), th=GA*i;
-  out[o]=Math.cos(th)*r*R; out[o+1]=y*R; out[o+2]=Math.sin(th)*r*R;
+// ── empat bentuk, masing-masing mewakili satu proyek ──
+
+// Pezen: gelombang suara. Tiga letupan bicara dengan jeda di antaranya.
+function shapeVoice(i,n,out,o){
+  const BARS=84;
+  const b=i%BARS;                       // batang tegak, bukan awan, biar kebaca
+  const x=(b/(BARS-1)-.5)*6.6;
+  const env = Math.exp(-Math.pow((x+2.30)/0.90,2))*1.00
+            + Math.exp(-Math.pow((x+0.35)/1.10,2))*1.45
+            + Math.exp(-Math.pow((x-1.95)/0.85,2))*1.05;
+  const s=Math.sin(b*78.233)*43758.5453, fr=s-Math.floor(s);
+  const h=(0.12+env*0.92)*(0.42+0.58*fr);
+  out[o]  = x+(Math.random()-.5)*0.042;
+  out[o+1]=(Math.random()*2-1)*h;
+  out[o+2]=(Math.random()-.5)*0.42;
 }
-function shapeKnot(i,n,out,o){
-  const t=(i/n)*Math.PI*2, q=3, R=2.1, r=.85, u=t*2, j=.16;
-  out[o]  =(R+r*Math.cos(q*t))*Math.cos(u)+(Math.random()-.5)*j*2;
-  out[o+1]= r*Math.sin(q*t)*1.7           +(Math.random()-.5)*j*2;
-  out[o+2]=(R+r*Math.cos(q*t))*Math.sin(u)+(Math.random()-.5)*j*2;
+
+// Receipt Scanner: lembar struk, baris teks, sedikit menggulung.
+function shapeReceipt(i,n,out,o){
+  const W=3.40, H=5.30, ROWS=26;
+  const row=i%ROWS;
+  const s=Math.sin(row*12.9898)*43758.5453, fr=s-Math.floor(s);
+  const y = H/2-0.20-row*(H-0.44)/ROWS;
+  let x0=-W/2+0.16, x1=x0+(W-0.32)*(0.35+fr*0.60);
+  if(row<2){ x0=-W*0.30; x1=W*0.30; }                     // judul, rata tengah
+  else if(row%5===4){ x1=W/2-0.16; x0=x1-(W-0.32)*0.28; }  // angka, rata kanan
+  out[o]  = x0+Math.random()*(x1-x0);
+  out[o+1]= y+(Math.random()-.5)*0.085;
+  out[o+2]= Math.sin(y*0.75)*0.42+(Math.random()-.5)*0.05;
 }
-function shapeWave(i,n,out,o){
-  const s=Math.ceil(Math.sqrt(n)), a=i%s, b=Math.floor(i/s);
-  const x=(a/s-.5)*7.0, z=(b/s-.5)*7.0;
-  out[o]=x; out[o+1]=Math.sin(x*1.15)*.62+Math.cos(z*.95)*.62+Math.sin((x+z)*.6)*.4; out[o+2]=z;
+
+// House Price: sebaran harga, sumbu plus awan titik yang melebar naik.
+function shapeScatter(i,n,out,o){
+  const AX=0.10;
+  if(i<n*AX){
+    const k=i/(n*AX);
+    if(k<0.5){ out[o]=-2.60+(k*2)*5.20; out[o+1]=-2.40+(Math.random()-.5)*0.05; }
+    else     { out[o]=-2.60+(Math.random()-.5)*0.05; out[o+1]=-2.40+((k-0.5)*2)*4.80; }
+    out[o+2]=(Math.random()-.5)*0.05;
+    return;
+  }
+  const u=Math.random();
+  const g=(Math.random()+Math.random()+Math.random()-1.5)/1.5;
+  out[o]  =-2.40+u*4.90;
+  out[o+1]=-1.90+u*3.90+g*(0.25+u*0.95);
+  out[o+2]=(Math.random()-.5)*0.50;
 }
-function shapeGalaxy(i,n,out,o){
-  const arms=3, a=i%arms, t=Math.pow(i/n,.58);
-  const ang=t*6.2+a*(Math.PI*2/arms), rad=.25+t*3.5, sp=.10+t*.22;
-  out[o]  =Math.cos(ang)*rad+(Math.random()-.5)*sp*2;
-  out[o+1]=Math.sin(ang)*rad+(Math.random()-.5)*sp*2;
-  out[o+2]=(Math.random()-.5)*sp*2*(1.4-t)*.8;
+
+// LearnToRecall: jaringan neural, empat lapis simpul dan sambungannya.
+const LX=[-2.70,-0.95,0.95,2.70], LN=[5,9,9,3];
+const ly=(l,c)=>(c-(LN[l]-1)/2)*(LN[l]>6?0.62:0.95);
+function shapeNeural(i,n,out,o){
+  if(i<n*0.55){                                    // simpul
+    const total=LN[0]+LN[1]+LN[2]+LN[3];
+    let c=i%total, l=0;
+    while(c>=LN[l]){ c-=LN[l]; l++; }
+    const th=Math.random()*Math.PI*2, ph=Math.acos(Math.random()*2-1);
+    const rr=0.19*Math.cbrt(Math.random());
+    out[o]  =LX[l]+rr*Math.sin(ph)*Math.cos(th);
+    out[o+1]=ly(l,c)+rr*Math.sin(ph)*Math.sin(th);
+    out[o+2]=rr*Math.cos(ph);
+    return;
+  }
+  const l=Math.floor(Math.random()*3), t=Math.random();  // sambungan
+  const a=ly(l,Math.floor(Math.random()*LN[l])), b=ly(l+1,Math.floor(Math.random()*LN[l+1]));
+  out[o]  =LX[l]+(LX[l+1]-LX[l])*t;
+  out[o+1]=a+(b-a)*t;
+  out[o+2]=(Math.random()-.5)*0.12;
 }
-function shapeHelix(i,n,out,o){
-  const t=(i/n)*Math.PI*2*3.2, side=(i%2)?1:-1, r=1.5, j=.07;
-  out[o]  =Math.cos(t)*r*side+(Math.random()-.5)*j*2;
-  out[o+1]=(i/n-.5)*7.4;
-  out[o+2]=Math.sin(t)*r*side+(Math.random()-.5)*j*2;
-}
-const MAKERS=[shapeSphere,shapeKnot,shapeGalaxy,shapeWave,shapeHelix];
+const MAKERS=[shapeVoice,shapeNeural,shapeReceipt,shapeScatter];
 
 export const MOBILE = matchMedia('(max-width:820px)').matches;
 export const REDUCED = matchMedia('(prefers-reduced-motion:reduce)').matches;
