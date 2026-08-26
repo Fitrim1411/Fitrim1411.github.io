@@ -5,17 +5,19 @@ import * as THREE from 'three';
 
 // Pezen: gelombang suara. Tiga letupan bicara dengan jeda di antaranya.
 function shapeVoice(i,n,out,o){
-  const BARS=84;
+  // 84 batang cuma berjarak 6px di layar, halo bloom menutup celahnya jadi gumpalan.
+  // 38 batang memberi jarak ~13px, cukup lebar untuk tetap terbaca setelah bloom.
+  const BARS=38;
   const b=i%BARS;                       // batang tegak, bukan awan, biar kebaca
-  const x=(b/(BARS-1)-.5)*6.6;
-  const env = Math.exp(-Math.pow((x+2.30)/0.90,2))*1.00
-            + Math.exp(-Math.pow((x+0.35)/1.10,2))*1.45
-            + Math.exp(-Math.pow((x-1.95)/0.85,2))*1.05;
+  const x=(b/(BARS-1)-.5)*5.8;
+  const env = Math.exp(-Math.pow((x+2.05)/0.80,2))*1.00
+            + Math.exp(-Math.pow((x+0.30)/0.95,2))*1.45
+            + Math.exp(-Math.pow((x-1.72)/0.75,2))*1.05;
   const s=Math.sin(b*78.233)*43758.5453, fr=s-Math.floor(s);
-  const h=(0.12+env*0.92)*(0.42+0.58*fr);
-  out[o]  = x+(Math.random()-.5)*0.042;
+  const h=(0.10+env*1.35)*(0.45+0.55*fr);
+  out[o]  = x+(Math.random()-.5)*0.030;
   out[o+1]=(Math.random()*2-1)*h;
-  out[o+2]=(Math.random()-.5)*0.42;
+  out[o+2]=(Math.random()-.5)*0.16;     // tipis, biar batang tak saling tumpang di proyeksi
 }
 
 // Receipt Scanner: lembar struk, baris teks, sedikit menggulung.
