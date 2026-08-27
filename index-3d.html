@@ -84,6 +84,24 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4.2vw,3rem);fon
 .pcard p{color:var(--t2);font-size:.85rem;line-height:1.65;font-weight:300}
 .pcard .tg{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
 .pcard .tg span{padding:.2rem .55rem;border-radius:4px;background:rgba(124,106,239,.1);color:var(--ac);font-size:.68rem}
+/* ── About: angka ringkas lalu paragraf ── */
+.stats{display:flex;gap:2.5rem;flex-wrap:wrap;margin:1.5rem 0 2rem}
+.stats b{display:block;font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--ac);line-height:1}
+.stats span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.prose{max-width:62ch}
+.prose p{color:var(--t2);font-size:.92rem;line-height:1.85;font-weight:300;margin-bottom:1.1rem}
+.prose .hl{color:var(--t1);font-weight:400}
+
+/* ── Skills: satu kartu per kategori ── */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.scard{padding:1.4rem;border-radius:18px;background:rgba(13,17,23,.62);border:1px solid rgba(124,106,239,.13)}
+.scard h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:.9rem}
+.scard .tg{display:flex;gap:.4rem;flex-wrap:wrap}
+.scard .tg span{padding:.2rem .55rem;border-radius:4px;background:rgba(124,106,239,.1);color:var(--t2);font-size:.68rem}
+
+.pcard a.rl{display:inline-block;margin-top:1rem;color:var(--ac);text-decoration:none;font-size:.78rem}
+.pcard a.rl:hover{text-decoration:underline}
+
 .clist{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
 .clist a{padding:.75rem 1.3rem;border-radius:999px;border:1px solid rgba(124,106,239,.22);
   color:var(--t1);text-decoration:none;font-size:.85rem;background:rgba(13,17,23,.5);backdrop-filter:blur(10px);transition:border-color .3s,color .3s}
@@ -116,7 +134,9 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4.2vw,3rem);fon
 <nav>
   <span class="brand">◈</span>
   <a href="#home" class="on">Home</a>
+  <a href="#about">About</a>
   <a href="#work">Work</a>
+  <a href="#research">Research</a>
   <a href="#contact">Contact</a>
   <a href="index.html">Classic ↗</a>
 </nav>
@@ -125,9 +145,9 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4.2vw,3rem);fon
   <section id="home">
     <div class="hero-grid">
       <div>
-        <div class="tag">Apple Developer Institute · AI/ML</div>
+        <div class="tag" id="tag"></div>
         <h1><span class="ln"><i>Step into</i></span><span class="ln"><i>the thinking machine</i></span></h1>
-        <p class="lede">I teach machines to see, hear, and think. iOS apps where AI does the heavy lifting, from reading damaged receipts to understanding spoken orders.</p>
+        <p class="lede" id="lede"></p>
         <a href="#work" class="cta">Explore the work →</a>
         <a href="#contact" class="cta ghost">Let's talk</a>
       </div>
@@ -141,6 +161,23 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4.2vw,3rem);fon
     </div>
   </section>
 
+  <section id="about">
+    <div class="panel">
+      <div class="slab rev">About</div>
+      <h2 class="rev" id="aboutT"></h2>
+      <div class="stats rev" id="aboutS"></div>
+      <div class="prose rev" id="aboutP"></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="panel">
+      <div class="slab rev">Skills</div>
+      <h2 class="rev" id="skillsT"></h2>
+      <div class="sgrid rev" id="sg"></div>
+    </div>
+  </section>
+
   <section id="work">
     <div class="panel">
       <div class="slab rev">Selected Work</div>
@@ -149,16 +186,19 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4.2vw,3rem);fon
     </div>
   </section>
 
+  <section id="research">
+    <div class="panel">
+      <div class="slab rev">Research</div>
+      <h2 class="rev" id="resT"></h2>
+      <div class="pgrid rev" id="rg"></div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="panel">
       <div class="slab rev">Contact</div>
-      <h2 class="rev">Let's build something<br>worth shipping.</h2>
-      <div class="clist rev">
-        <a href="mailto:fitrim1411@gmail.com">✉ fitrim1411@gmail.com</a>
-        <a href="https://www.linkedin.com/in/fitri-maharani-0ab984420" target="_blank" rel="noopener">in LinkedIn</a>
-        <a href="https://github.com/Fitrim1411" target="_blank" rel="noopener">⌘ GitHub</a>
-        <a href="https://www.instagram.com/piyuyouw/" target="_blank" rel="noopener">◎ Instagram</a>
-      </div>
+      <h2 class="rev" id="conT"></h2>
+      <div class="clist rev" id="cl"></div>
     </div>
   </section>
 </main>
@@ -168,16 +208,46 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,4.2vw,3rem);fon
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
 </script>
+<script src="data.js"></script>
 <script type="module">
-const PROJECTS=[
-  {ico:'🎙️',t:'Pezen: The AI Waiter That Actually Listens',d:'An iPad app that replaces human waiters with voice AI. Detects when you stop speaking, transcribes, repairs disfluencies, extracts intent, and answers aloud.',g:['SwiftUI','SileroVAD','Speech-to-Text','TTS']},
-  {ico:'🧠',t:'LearnToRecall: Your Textbook, But Smarter',d:'Upload a textbook, get AI flashcards and a RAG chatbot grounded in your material. Hybrid retrieval with ChromaDB + BM25 and Gemma 3 4B running locally.',g:['RAG','ChromaDB','Gemma 3','MLX']},
-  {ico:'🏠',t:'House Price Predictor: 14 Cities, One Tap',d:'Scraped 12K+ listings, cleaned to 4,206 records, trained XGBoost, converted to Core ML for on-device inference. R2 0.66 with just 5 features.',g:['XGBoost','Core ML','Python']},
-  {ico:'📸',t:'Receipt Scanner: Restore, Read, Record',d:'Reconstructs damaged Indonesian receipts with NAFNet, reads them with PaddleOCR, parses totals with layered regex. Deployed on-device via ONNX.',g:['NAFNet','PaddleOCR','ONNX','PyTorch']},
-];
-document.getElementById('pg').innerHTML=PROJECTS.map(p=>
-  '<article class="pcard rev"><div class="ico">'+p.ico+'</div><h3>'+p.t+'</h3><p>'+p.d+'</p>'+
-  '<div class="tg">'+p.g.map(g=>'<span>'+g+'</span>').join('')+'</div></article>').join('');
+// Semua teks diambil dari data.js, sama seperti halaman classic.
+// Ubah di sana sekali, dua halaman ikut berubah.
+const C=CONFIG, $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const tags=a=>'<div class="tg">'+a.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>';
+
+// hero
+$('tag').textContent=C.hero.tag;
+$('lede').textContent=C.hero.description;
+
+// about
+$('aboutT').textContent=C.about.title.replace(/\n/g,' ');
+$('aboutS').innerHTML=C.about.stats.map(s=>
+  '<div><b>'+esc(s.number)+'</b><span>'+esc(s.label)+'</span></div>').join('');
+$('aboutP').innerHTML=C.about.paragraphs.map(p=>'<p>'+p+'</p>').join('');
+
+// skills
+$('skillsT').textContent=C.skills.title.replace(/\n/g,' ');
+$('sg').innerHTML=C.skills.categories.map(c=>
+  '<div class="scard"><h3>'+esc(c.label)+'</h3>'+tags(c.items)+'</div>').join('');
+
+// proyek: unggulan dulu, lalu sisanya
+const P=[C.projects.featured,...C.projects.cards];
+$('pg').innerHTML=P.map(p=>
+  '<article class="pcard rev"><div class="ico">'+p.icon+'</div>'+
+  '<h3>'+esc(p.title)+'</h3><p>'+esc(p.description)+'</p>'+tags(p.tags)+'</article>').join('');
+
+// riset
+$('resT').textContent=C.research.title;
+$('rg').innerHTML=C.research.papers.map(r=>
+  '<article class="pcard rev"><h3>'+esc(r.title)+'</h3><p>'+esc(r.description)+'</p>'+
+  '<a class="rl" href="'+r.link+'" target="_blank" rel="noopener">'+esc(r.linkText)+'</a></article>').join('');
+
+// kontak
+$('conT').innerHTML=esc(C.contact.title).replace(/\n/g,'<br>');
+$('cl').innerHTML=C.contact.links.map(l=>
+  '<a href="'+l.url+'"'+(l.url.startsWith('http')?' target="_blank" rel="noopener"':'')+'>'+
+  l.icon+' '+esc(l.value)+'</a>').join('');
 
 // ════════ PARTIKEL MORPHING ════════
 import {initParticles,MOBILE} from './particles.js';
