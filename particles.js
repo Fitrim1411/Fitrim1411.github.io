@@ -202,9 +202,13 @@ export async function initParticles(canvas, opt={}){
     }catch(err){ composer=null; }   // bloom gagal dimuat -> tetap jalan tanpa bloom
   }
 
-  let cur=0,next=1,mixT=0,holding=true,hold=0;
+  // Satu bentuk saja berarti tidak ada yang perlu dimorf. Tanpa penjaga ini
+  // next menunjuk indeks 1 yang tidak ada, dan SHAPES[1] undefined mematikan animasi.
+  const SOLO = SHAPES.length < 2;
+  let cur=0,next=SOLO?0:1,mixT=0,holding=true,hold=0;
   const HOLD=opt.hold||3.4, MORPH=opt.morph||2.6;
   function advance(dt){
+    if(SOLO) return;
     if(holding){
       hold+=dt;
       if(hold>=HOLD){holding=false;hold=0;}
