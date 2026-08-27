@@ -73,6 +73,8 @@ function shapeNeural(i,n,out,o){
   out[o+2]=(Math.random()-.5)*0.12;
 }
 const MAKERS=[shapeVoice,shapeNeural,shapeReceipt,shapeScatter];
+// Nama supaya pemanggil bisa memilih sebagian saja, mis. shapes:['voice','neural'].
+const BY_NAME={voice:shapeVoice,neural:shapeNeural,receipt:shapeReceipt,scatter:shapeScatter};
 
 export const MOBILE = matchMedia('(max-width:820px)').matches;
 export const REDUCED = matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -84,6 +86,8 @@ export async function initParticles(canvas, opt={}){
   const SIZE  = opt.size  || (MOBILE?1.6:1.9);
   const FOV   = opt.fov   || 55;
   const BLOOM = opt.bloom !== false && !MOBILE;
+  const SCALE = opt.scale || 1;                 // perbesar bentuk tanpa menggeser kamera
+  const PICK  = opt.shapes ? opt.shapes.map(n=>BY_NAME[n]).filter(Boolean) : MAKERS;
   const onFrame = opt.onFrame;
 
   // ukuran diambil dari canvas, bukan dari layar, supaya bisa dipakai di hero separuh lebar
@@ -98,14 +102,15 @@ export async function initParticles(canvas, opt={}){
   const cam=new THREE.PerspectiveCamera(FOV,W()/H(),.1,100);
   cam.position.z=CAMZ;
 
-  const SHAPES=MAKERS.map(fn=>{
+  const SHAPES=PICK.map(fn=>{
     const arr=new Float32Array(COUNT*3);
     for(let i=0;i<COUNT;i++) fn(i,COUNT,arr,i*3);
+    if(SCALE!==1) for(let i=0;i<arr.length;i++) arr[i]*=SCALE;
     return arr;
   });
 
   const aA=new Float32Array(COUNT*3), aB=new Float32Array(COUNT*3);
-  aA.set(SHAPES[0]); aB.set(SHAPES[1]);
+  aA.set(SHAPES[0]); aB.set(SHAPES[SHAPES.length>1?1:0]);
   const aColor=new Float32Array(COUNT*3), aRand=new Float32Array(COUNT);
   const cPurple=new THREE.Color(0x7c6aef), cLilac=new THREE.Color(0xc9c1ff), cTeal=new THREE.Color(0x6ff0d6);
   const tmpC=new THREE.Color();
@@ -185,7 +190,7 @@ export async function initParticles(canvas, opt={}){
   }
 
   let cur=0,next=1,mixT=0,holding=true,hold=0;
-  const HOLD=3.4, MORPH=2.6;
+  const HOLD=opt.hold||3.4, MORPH=opt.morph||2.6;
   function advance(dt){
     if(holding){
       hold+=dt;

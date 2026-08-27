@@ -419,7 +419,10 @@ try{
   const {initParticles,MOBILE,REDUCED}=await import('./particles.js');
   if(!MOBILE && !REDUCED){
     const cv=document.getElementById('fx');
-    await initParticles(cv,{count:45000,camZ:11,alpha:.26});
+    // Bentuk yang sama seperti halaman 3D. Di hero ini lebarnya cuma separuh layar,
+    // jadi struk dan sebaran malah lebih tidak terbaca lagi.
+    await initParticles(cv,{count:45000,camZ:11,alpha:.26,
+      shapes:['voice','neural'], hold:7.0, morph:3.2});
     cv.style.opacity='1';
   }
 }catch(e){}
