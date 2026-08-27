@@ -260,11 +260,9 @@ try{
   await initParticles(document.getElementById('scene'),{
     count: MOBILE?34000:120000,
     camZ: 9.6, fov: 52,
-    // Cuma dua bentuk yang terbaca jelas di ukuran hero: gelombang suara (Pezen)
-    // dan jaringan neural (LearnToRecall). Struk dan sebaran jadi gumpalan, dibuang.
-    shapes: ['voice','neural'],
-    scale: 1.30,                 // lebih besar, mengisi ruang yang ditinggalkan dua bentuk tadi
-    hold: 7.0, morph: 3.2,       // jeda panjang biar tidak terasa bolak-balik
+    // Satu bola saja, tidak berganti bentuk. Riak muncul di sekitar kursor.
+    shapes: ['globe'],
+    rippleAmp: 0.22, rippleRadius: 2.6,
     onFrame(t,{cam,core,mouse}){
       const {mx,my}=mouse();
       tx+=(mx*.8-tx)*.045; ty+=(-my*.5-ty)*.045;

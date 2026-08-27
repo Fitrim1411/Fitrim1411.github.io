@@ -72,9 +72,20 @@ function shapeNeural(i,n,out,o){
   out[o+1]=a+(b-a)*t;
   out[o+2]=(Math.random()-.5)*0.12;
 }
+// Bola padat. Deret Fibonacci menyebar titik rata di permukaan, tanpa penumpukan
+// di kutub seperti kalau pakai sudut acak biasa. Cangkang tipis supaya riak terbaca.
+const GA=Math.PI*(3-Math.sqrt(5));
+function shapeGlobe(i,n,out,o){
+  const y=1-(i/(n-1))*2, r=Math.sqrt(Math.max(0,1-y*y)), th=GA*i;
+  const R=3.35+(Math.random()-.5)*0.14;
+  out[o]  =Math.cos(th)*r*R;
+  out[o+1]=y*R;
+  out[o+2]=Math.sin(th)*r*R;
+}
+
 const MAKERS=[shapeVoice,shapeNeural,shapeReceipt,shapeScatter];
 // Nama supaya pemanggil bisa memilih sebagian saja, mis. shapes:['voice','neural'].
-const BY_NAME={voice:shapeVoice,neural:shapeNeural,receipt:shapeReceipt,scatter:shapeScatter};
+const BY_NAME={voice:shapeVoice,neural:shapeNeural,receipt:shapeReceipt,scatter:shapeScatter,globe:shapeGlobe};
 
 export const MOBILE = matchMedia('(max-width:820px)').matches;
 export const REDUCED = matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -134,12 +145,14 @@ export async function initParticles(canvas, opt={}){
       uMix:{value:0}, uTime:{value:0},
       uMouse:{value:new THREE.Vector3(999,999,0)},
       uAlpha:{value:ALPHA},
+      uRad:{value:opt.rippleRadius||2.6},   // seberapa lebar riak menyebar dari kursor
+      uAmp:{value:opt.rippleAmp??0.22},     // tinggi riak, sengaja kecil biar tidak berlebihan
       uBase:{value:CAMZ},          // titik seukuran uSize px di jarak kamera awal
       uSize:{value:SIZE*Math.min(devicePixelRatio,2)}
     },
     vertexShader:[
       'attribute vec3 aA; attribute vec3 aB; attribute vec3 aColor; attribute float aRand;',
-      'uniform float uMix, uTime, uSize, uBase; uniform vec3 uMouse;',
+      'uniform float uMix, uTime, uSize, uBase, uRad, uAmp; uniform vec3 uMouse;',
       'varying vec3 vColor; varying float vFade;',
       'void main(){',
       '  float d = clamp((uMix - aRand*0.28) / 0.72, 0.0, 1.0);',
@@ -147,11 +160,11 @@ export async function initParticles(canvas, opt={}){
       '  vec3 p = mix(aA, aB, d);',
       '  float ph = aRand*6.2831;',
       '  p += 0.05*vec3(sin(uTime*0.7+ph), cos(uTime*0.6+ph), sin(uTime*0.5+ph));',
-      '  vec2 diff = p.xy - uMouse.xy;',
-      '  float dist = length(diff);',
-      '  float force = smoothstep(2.3, 0.0, dist);',
-      '  p.xy += normalize(diff + vec2(0.0001)) * force * 1.35;',
-      '  vColor = mix(aColor, vec3(1.0), force*0.40);',
+      '  float dist = length(p.xy - uMouse.xy);',
+      '  float fall = smoothstep(uRad, 0.0, dist);',
+      '  float rip = sin(dist*5.0 - uTime*3.2) * fall * uAmp;',
+      '  p += normalize(p + vec3(0.0001)) * rip;',
+      '  vColor = mix(aColor, vec3(1.0), fall*0.32);',
       '  vec4 mv = modelViewMatrix * vec4(p,1.0);',
       '  gl_PointSize = uSize * (uBase / max(0.4,-mv.z));',
       '  vFade = clamp(1.0 - (-mv.z - 4.0)/16.0, 0.12, 1.0);',
