@@ -416,7 +416,8 @@ document.querySelectorAll('.nl a').forEach(a=>{a.addEventListener('click',()=>do
 <script type="module">
 // Partikel di hero. Kalau gagal dimuat, blob blur di belakangnya tetap tampil.
 try{
-  const {initParticles,MOBILE,REDUCED}=await import('./particles.js');
+  // ?v= dinaikkan tiap kali particles.js berubah, lihat catatan di index-3d.html
+  const {initParticles,MOBILE,REDUCED}=await import('./particles.js?v=3');
   if(!MOBILE && !REDUCED){
     const cv=document.getElementById('fx');
     // Bola yang sama seperti halaman 3D. Canvas ini cuma separuh lebar layar,

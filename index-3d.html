@@ -250,7 +250,9 @@ $('cl').innerHTML=C.contact.links.map(l=>
   l.icon+' '+esc(l.value)+'</a>').join('');
 
 // ════════ PARTIKEL MORPHING ════════
-import {initParticles,MOBILE} from './particles.js';
+// ?v= dinaikkan tiap kali particles.js berubah. Browser menyimpan modul di cache
+// terpisah yang tidak selalu ikut terbuang saat muat ulang paksa.
+import {initParticles,MOBILE} from './particles.js?v=3';
 
 let sy=0, tx=0, ty=0;
 addEventListener('scroll',()=>{sy=scrollY;},{passive:true});
