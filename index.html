@@ -248,7 +248,7 @@ const hl = C.hero.headlines.map((l,i)=>{
 }).join('');
 let hb='<a href="'+C.hero.buttons.primary.link+'" class="bp">'+C.hero.buttons.primary.text+'</a>';
 hb+='<a href="'+C.hero.buttons.secondary.link+'" class="bo">'+C.hero.buttons.secondary.text+'</a>';
-if(C.hero.buttons.resume) hb+='<a href="'+C.resumeFile+'" download class="br">Download CV ↓</a>';
+if(C.hero.buttons.resume && C.resumeFile) hb+='<a href="'+C.resumeFile+'" download class="br">Download CV ↓</a>';
 document.getElementById('heroC').innerHTML='<div class="htag">'+C.hero.tag+'</div><h1>'+hl+'</h1><p>'+C.hero.description+'</p><div class="hcta">'+hb+'</div>';
 
 // ABOUT — with photo carousel

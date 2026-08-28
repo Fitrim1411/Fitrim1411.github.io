@@ -10,7 +10,7 @@ const CONFIG = {
   name: "Fitri Maharani",
   logoFirst: "Fitri",
   logoAccent: "Maharani",
-  resumeFile: "YOUR-RESUME.pdf",
+  resumeFile: "",                 // isi nama file PDF kalau CV siap; kosong = tombol Download CV disembunyikan
 
   // ─── 📸 FOTO CAROUSEL ───
   // Taruh file foto di folder yang sama, lalu tambahin namanya di sini.
