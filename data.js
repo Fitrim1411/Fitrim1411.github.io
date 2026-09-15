@@ -51,7 +51,7 @@ const CONFIG = {
   about: {
     title: "From hydroponics\nto AI pipelines.",
     stats: [
-      { number: "6+", label: "Projects" },
+      { number: "5",  label: "Projects" },
       { number: "1",  label: "Publication" },
       { number: "4",  label: "AI domains" },
     ],
@@ -127,7 +127,7 @@ const CONFIG = {
         image: "pezen-card.jpg",
         demoVideo: "",   // ← nanti: "pezen-demo.mp4" atau link YouTube
         tags: ["SwiftUI","SileroVAD","Speech-to-Text","Intent Extraction","Text-to-Speech","Python"],
-        links: [{ label: "GitHub →", url: "#" }],
+        links: [],
         // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
@@ -148,7 +148,7 @@ const CONFIG = {
         image: "ltr-card.jpg",
         demoVideo: "",   // ← nanti: link demo
         tags: ["RAG","ChromaDB","Gemma 3","Qwen2.5-VL","MLX","SwiftUI"],
-        links: [{ label: "GitHub →", url: "#" }],
+        links: [],
         // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
@@ -169,7 +169,7 @@ const CONFIG = {
         image: "house-card.jpg",
         demoVideo: "",
         tags: ["XGBoost","Core ML","SwiftUI","Python","Web Scraping"],
-        links: [{ label: "GitHub →", url: "#" }],
+        links: [],
         // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
@@ -190,13 +190,13 @@ const CONFIG = {
         image: "receipt-card.jpg",
         demoVideo: "",
         tags: ["NAFNet","PaddleOCR","ONNX","FastAPI","PyTorch","SwiftUI"],
-        links: [{ label: "GitHub →", url: "#" }],
+        links: [{ label: "GitHub →", url: "https://github.com/Fitrim1411/StrukScan" }],
         // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
           highlights: [ { label: "Parameter Model", value: "23,8 juta" }, { label: "Data Latih", value: "4.445 pasang" }, { label: "Inference", value: "On-device (ONNX)" } ],
           images: ["receipt-poster.jpg", "receipt-how.jpg", "receipt-paddleocr.jpg"],
-          video: "",       // link YouTube atau file .mp4
+          video: "receipt-demo.mp4",
         },
       },
     ],

@@ -3,3 +3,4 @@ Thumbs.db
 
 # video referensi, jangan ikut ke repo
 *.mp4
+!*-demo.mp4
