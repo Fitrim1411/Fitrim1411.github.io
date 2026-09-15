@@ -119,7 +119,7 @@ const CONFIG = {
           "their paths, heatmaps, and zones. People are pixelated in every output video, " +
           "and a local Qwen3-8B chatbot answers questions about the results.",
         icon: "📹",
-        image: "usee-cover.png",
+        image: "usee-cover.jpg",
         demoVideo: "",   // ← nanti: link demo
         tags: ["YOLO11s","BoT-SORT","OSNet Re-ID","Homography","DeepLabV3","Qwen3-8B","SwiftUI"],
         links: [{ label: "GitHub →", url: "https://github.com/glxy-sn/path-simulation" }],
@@ -131,7 +131,7 @@ const CONFIG = {
             "Built with Shafa Tiara and Daffa Ashdaqfillah. I worked on the ML pipeline (detection, tracking, and cross-camera re-ID) and the on-device chatbot that answers questions about each analysis.",
           ],
           highlights: [ { label: "Detection + Tracking", value: "YOLO11s" }, { label: "Cross-camera", value: "Re-ID" }, { label: "On-device Chatbot", value: "Qwen3-8B" } ],
-          images: ["usee-detection.png", "usee-paths.png", "usee-heatmap.png"],
+          images: ["usee-detection.jpg", "usee-paths.jpg", "usee-heatmap.jpg"],
           video: "",       // link YouTube atau file .mp4
         },
       },
