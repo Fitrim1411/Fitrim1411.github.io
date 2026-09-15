@@ -110,6 +110,32 @@ const CONFIG = {
 
     cards: [
       {
+        type: "Computer Vision · Challenge 2",
+        title: "U See: How People Move Through a Space",
+        description:
+          "A macOS app that turns ordinary multi-camera CCTV footage into movement " +
+          "patterns on a floor plan. Detects people with YOLO11s, tracks them with " +
+          "BoT-SORT, links identities across cameras with OSNet re-ID, then maps " +
+          "their paths, heatmaps, and zones. People are pixelated in every output video, " +
+          "and a local Qwen3-8B chatbot answers questions about the results.",
+        icon: "📹",
+        image: "usee-cover.png",
+        demoVideo: "",   // ← nanti: link demo
+        tags: ["YOLO11s","BoT-SORT","OSNet Re-ID","Homography","DeepLabV3","Qwen3-8B","SwiftUI"],
+        links: [{ label: "GitHub →", url: "https://github.com/glxy-sn/path-simulation" }],
+        // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
+        detail: {
+          overview: [
+            "Understanding how people move through an area helps architects improve how it is designed and managed, but observing those patterns by hand is slow. With insights from Prof. Astrid and Dr. Stephanus Evert Indrawan (Department of Architecture, Ciputra University), we explored how computer vision can do that observing for them.",
+            "U See takes footage from several existing CCTV cameras, detects and tracks every visitor, fuses the same person across cameras, and projects everyone onto the floor plan. The results become three views: object detection, movement patterns, and crowd analytics (foot traffic and time spent).",
+            "Built with Shafa Tiara and Daffa Ashdaqfillah. I worked on the ML pipeline (detection, tracking, and cross-camera re-ID) and the on-device chatbot that answers questions about each analysis.",
+          ],
+          highlights: [ { label: "Detection + Tracking", value: "YOLO11s" }, { label: "Cross-camera", value: "Re-ID" }, { label: "On-device Chatbot", value: "Qwen3-8B" } ],
+          images: ["usee-detection.png", "usee-paths.png", "usee-heatmap.png"],
+          video: "",       // link YouTube atau file .mp4
+        },
+      },
+      {
         type: "NLP · Challenge 1",
         title: "LearnToRecall: Your Textbook, But Smarter",
         description:
