@@ -17,6 +17,7 @@ const CONFIG = {
   // Auto-slide tiap 4 detik, bisa juga geser manual / klik dot.
   // Minimal 1 foto, maksimal bebas.
   photos: [
+    "fitri-about.jpg",
     // "foto1.jpg",
     // "foto2.jpg",
     // "foto3.jpg",
@@ -123,7 +124,7 @@ const CONFIG = {
           "transcribes their speech, repairs disfluencies, extracts intent, " +
           "validates against the menu, and responds aloud. All in real time.",
         icon: "🎙️",
-        image: "",       // ← nanti: "pezen-screenshot.png"
+        image: "pezen-card.jpg",
         demoVideo: "",   // ← nanti: "pezen-demo.mp4" atau link YouTube
         tags: ["SwiftUI","SileroVAD","Speech-to-Text","Intent Extraction","Text-to-Speech","Python"],
         links: [{ label: "GitHub →", url: "#" }],
@@ -131,7 +132,7 @@ const CONFIG = {
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
           highlights: [ { label: "Platform", value: "iPadOS" }, { label: "Voice Activity", value: "SileroVAD" }, { label: "Respons", value: "Real-time" } ],
-          images: [],      // ["shot1.png", "shot2.png"]
+          images: ["pezen-poster.jpg", "pezen-how.jpg"],
           video: "",       // link YouTube atau file .mp4
         },
       },
@@ -144,7 +145,7 @@ const CONFIG = {
           "retrieval with ChromaDB + BM25, Reciprocal Rank Fusion, and Gemma 3 4B " +
           "running locally via MLX.",
         icon: "🧠",
-        image: "",       // ← nanti: "learntorecall.png"
+        image: "ltr-card.jpg",
         demoVideo: "",   // ← nanti: link demo
         tags: ["RAG","ChromaDB","Gemma 3","Qwen2.5-VL","MLX","SwiftUI"],
         links: [{ label: "GitHub →", url: "#" }],
@@ -152,7 +153,7 @@ const CONFIG = {
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
           highlights: [ { label: "LLM", value: "Gemma 3 4B" }, { label: "Retrieval", value: "Hybrid + RRF" }, { label: "Runtime", value: "MLX on-device" } ],
-          images: [],      // ["shot1.png", "shot2.png"]
+          images: ["ltr-poster.jpg", "ltr-flashcard.jpg", "ltr-rag.jpg"],
           video: "",       // link YouTube atau file .mp4
         },
       },
@@ -165,7 +166,7 @@ const CONFIG = {
           "XGBoost with manual hyperparameter tuning, then converted to " +
           "Core ML for on-device inference. R² = 0.66 with just 5 features.",
         icon: "🏠",
-        image: "",
+        image: "house-card.jpg",
         demoVideo: "",
         tags: ["XGBoost","Core ML","SwiftUI","Python","Web Scraping"],
         links: [{ label: "GitHub →", url: "#" }],
@@ -173,7 +174,7 @@ const CONFIG = {
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
           highlights: [ { label: "Akurasi", value: "R2 0.66" }, { label: "Data Bersih", value: "4.206 listing" }, { label: "Fitur", value: "5" } ],
-          images: [],      // ["shot1.png", "shot2.png"]
+          images: ["house-poster.jpg", "house-eval.jpg"],
           video: "",       // link YouTube atau file .mp4
         },
       },
@@ -186,7 +187,7 @@ const CONFIG = {
           "then reads it with PaddleOCR via FastAPI, and parses totals " +
           "with layered regex. All deployed on-device via ONNX.",
         icon: "📸",
-        image: "",
+        image: "receipt-card.jpg",
         demoVideo: "",
         tags: ["NAFNet","PaddleOCR","ONNX","FastAPI","PyTorch","SwiftUI"],
         links: [{ label: "GitHub →", url: "#" }],
@@ -194,7 +195,7 @@ const CONFIG = {
         detail: {
           overview: [],    // ["Paragraf satu.", "Paragraf dua."]
           highlights: [ { label: "Parameter Model", value: "23,8 juta" }, { label: "Data Latih", value: "4.445 pasang" }, { label: "Inference", value: "On-device (ONNX)" } ],
-          images: [],      // ["shot1.png", "shot2.png"]
+          images: ["receipt-poster.jpg", "receipt-how.jpg", "receipt-paddleocr.jpg"],
           video: "",       // link YouTube atau file .mp4
         },
       },
