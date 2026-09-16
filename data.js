@@ -232,6 +232,7 @@ const CONFIG = {
       { icon: "in", label: "LinkedIn",  value: "/in/fitri-maharani",   url: "https://www.linkedin.com/in/fitri-maharani-0ab984420" },
       { icon: "⌘",  label: "GitHub",    value: "@Fitrim1411",          url: "https://github.com/Fitrim1411" },
       { icon: "◎",  label: "Instagram", value: "@piyuyouw",            url: "https://www.instagram.com/piyuyouw/" },
+      { icon: "✆",  label: "WhatsApp",  value: "+62 856-4351-0862",    url: "https://wa.me/6285643510862" },
     ],
   },
 
