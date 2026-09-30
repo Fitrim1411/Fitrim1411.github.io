@@ -51,7 +51,7 @@ const CONFIG = {
   about: {
     title: "From hydroponics\nto AI pipelines.",
     stats: [
-      { number: "5",  label: "Projects" },
+      { number: "6",  label: "Projects" },
       { number: "1",  label: "Publication" },
       { number: "4",  label: "AI domains" },
     ],
@@ -73,7 +73,7 @@ const CONFIG = {
   skills: {
     title: "Four AI domains.\nOne full stack.",
     categories: [
-      { label: "Apple / iOS",          items: ["Swift","SwiftUI","Core ML","ONNX Runtime","Xcode","CocoaPods"] },
+      { label: "Apple / iOS",          items: ["Swift","SwiftUI","Foundation Models","SwiftData","Core ML","ONNX Runtime","Xcode","CocoaPods"] },
       { label: "Machine Learning & AI", items: ["Python","PyTorch","XGBoost","NAFNet","PaddleOCR","MLX","Qwen2.5-VL","Gemma 3","SileroVAD","RAG"] },
       { label: "Backend & Data",        items: ["FastAPI","ChromaDB","BM25","HuggingFace","REST API"] },
       { label: "IoT & Hardware",        items: ["Arduino","ESP32","Edge Computing","MQTT","Sensor Integration"] },
@@ -115,6 +115,32 @@ const CONFIG = {
     },
 
     cards: [
+      {
+        type: "On-device LLM · Challenge 3",
+        title: "littlebrain: Remember What You Read",
+        description:
+          "An iPhone app that turns whatever you read, like a Google AI Mode answer, " +
+          "an article or a screenshot, into flashcards, then brings them back on a " +
+          "Leitner schedule through interactive notifications and a widget. Cards are " +
+          "written by Apple's on-device Foundation Models, and every model output is " +
+          "checked in Swift before it reaches the screen.",
+        icon: "🌱",
+        image: "littlebrain-card.jpg",
+        demoVideo: "",
+        tags: ["Foundation Models","Translation","SwiftData","App Intents","WidgetKit","SwiftUI"],
+        links: [],
+        // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
+        detail: {
+          overview: [
+            "Most of what we read on a phone is gone a few days later. littlebrain catches it where it happens: select text in any app and share it, or share a screenshot and the text is read automatically. The note is saved right away, and its cards follow in the background.",
+            "Every model call runs on-device with Apple's Foundation Models. The model doesn't accept Indonesian input, so Indonesian material goes through Apple's Translation framework first and the cards come back in Indonesian. Rules that code can decide, like no yes/no questions, live in a Swift verifier instead of the prompt. Written as a prompt rule, it still let six yes/no cards through in one run. As code, it lets through none.",
+            "Cards come back through interactive notifications you can answer without opening the app, a widget, and the app itself. Five Leitner boxes space each card out from 1 to 30 days.",
+          ],
+          highlights: [ { label: "Foundation Models", value: "On-device" }, { label: "Review", value: "5 Leitner boxes" }, { label: "Unit tests", value: "406" } ],
+          images: ["littlebrain-capture.jpg", "littlebrain-review.jpg", "littlebrain-track.jpg"],
+          video: "",
+        },
+      },
       {
         type: "Audio · Challenge 1",
         title: "Pezen: The AI Waiter That Actually Listens",
