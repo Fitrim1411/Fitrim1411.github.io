@@ -215,7 +215,7 @@ const CONFIG = {
       },
       {
         type: "International Journal (IJASEIT)", color: "teal",
-        title: "Synchronization of Data Transmission between Edge and Cloud in IoT-Based Hydroponics",
+        title: "Synchronization of Data Transmission between Edge and Cloud Network in IoT-Based Hydroponic Systems",
         description: "Explored how to reliably sync sensor data between edge devices and cloud infrastructure in hydroponic IoT systems. Published in the International Journal on Advanced Science, Engineering and Information Technology.",
         link: "https://ijaseit.insightsociety.org/index.php/ijaseit/article/view/20326",
         linkText: "Read Publication →",
