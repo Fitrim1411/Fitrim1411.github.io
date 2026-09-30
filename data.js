@@ -125,7 +125,7 @@ const CONFIG = {
           "written by Apple's on-device Foundation Models, and every model output is " +
           "checked in Swift before it reaches the screen.",
         icon: "🌱",
-        image: "littlebrain-card.jpg",
+        image: "littlebrain-card.jpg?v=2",
         demoVideo: "",
         tags: ["Foundation Models","Translation","SwiftData","App Intents","WidgetKit","SwiftUI"],
         links: [],
@@ -137,7 +137,7 @@ const CONFIG = {
             "Cards come back through interactive notifications you can answer without opening the app, a widget, and the app itself. Five Leitner boxes space each card out from 1 to 30 days.",
           ],
           highlights: [ { label: "Foundation Models", value: "On-device" }, { label: "Review", value: "5 Leitner boxes" }, { label: "Unit tests", value: "406" } ],
-          images: ["littlebrain-capture.jpg", "littlebrain-review.jpg", "littlebrain-track.jpg"],
+          images: ["littlebrain-capture.jpg?v=2", "littlebrain-review.jpg?v=2", "littlebrain-track.jpg?v=2"],
           video: "",
         },
       },
