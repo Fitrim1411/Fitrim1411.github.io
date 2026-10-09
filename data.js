@@ -51,7 +51,7 @@ const CONFIG = {
   about: {
     title: "From hydroponics\nto AI pipelines.",
     stats: [
-      { number: "6",  label: "Projects" },
+      { number: "7",  label: "Projects" },
       { number: "1",  label: "Publication" },
       { number: "4",  label: "AI domains" },
     ],
@@ -115,6 +115,32 @@ const CONFIG = {
     },
 
     cards: [
+      {
+        type: "macOS Tool · Open Source",
+        title: "Claude Ping: Never Miss a Finished Answer",
+        description:
+          "A macOS tool that puts a big, click-through border around the screen when " +
+          "Claude finishes or needs you, with a card that jumps straight to the right " +
+          "window. It listens to Claude Code, Claude Desktop and claude.ai, and adds a " +
+          "menu bar meter for the 5-hour usage limit. Everything is event-driven, so " +
+          "it uses no CPU while Claude is idle.",
+        icon: "🟢",
+        image: "claudeping-card.jpg",
+        demoVideo: "",
+        tags: ["Lua","Hammerspoon","Claude Code Hooks","macOS Accessibility","Bash","Open Source"],
+        links: [{ label: "GitHub →", url: "https://github.com/Fitrim1411/claude-ping" }],
+        // ↓ Isi ini = muncul di popup detail. Dikosongkan = nggak tampil.
+        detail: {
+          overview: [
+            "I often asked Claude something, switched to another window, and forgot to come back. macOS notifications were too easy to miss. Claude Ping makes it impossible to miss: a thick colored border around every screen (green for done, orange for a question, red for an error) and a card listing every session that is waiting. Click a row and it jumps to that exact window, even on a second display.",
+            "Each Claude app needed its own signal. Claude Code uses its official hooks, which send one tiny request to a local server in Hammerspoon. Claude Desktop has no hooks and runs its Code tab in a VM, so the module reads the Stop and Send buttons through macOS Accessibility, but only after you leave the window and only while Claude is answering. claude.ai uses an optional userscript.",
+            "The menu bar also shows how much of the 5-hour limit is used and how long until it resets, refreshed once each time Claude finishes. Nothing polls in the background: idle CPU stays at 0%, and one Claude Desktop check takes about 10–20 ms.",
+          ],
+          highlights: [ { label: "Signal sources", value: "3 apps" }, { label: "Idle CPU", value: "0%" }, { label: "Lua module", value: "1,160 lines" } ],
+          images: ["claudeping-hero.jpg", "claudeping-how-it-works.jpg", "claudeping-usage-meter.jpg"],
+          video: "",
+        },
+      },
       {
         type: "On-device LLM · Challenge 3",
         title: "littlebrain: Remember What You Read",
