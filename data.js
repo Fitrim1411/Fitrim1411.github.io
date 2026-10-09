@@ -68,12 +68,11 @@ const CONFIG = {
     closing: { title: "From raw data to a model in your pocket.", tag: "Telecom roots, AI focus" },
   },
 
-  // ─── 🛤 JOURNEY ─── (timeline di bagian About)
+  // ─── 🛤 JOURNEY ─── (timeline di bagian About, urutan di sini = urutan tampil, terbaru di atas)
   journey: [
-    { when: "2021 – 2025",    title: "D4 Telecommunication Engineering", where: "Politeknik Negeri Semarang" },
-    { when: "Feb – Jul 2024", title: "Hardware Development Intern",      where: "Omah IoT · Polines Data Center" },
-    { when: "2025",           title: "Published in IJASEIT",             where: "Edge and cloud data sync research" },
     { when: "Apr 2026 – now", title: "AI/ML Engineer Learner",           where: "Apple Developer Institute for AIML" },
+    { when: "Feb – Jul 2024", title: "Hardware Development Intern",      where: "Omah IoT · Polines Data Center" },
+    { when: "2021 – 2025",    title: "D4 Telecommunication Engineering", where: "Politeknik Negeri Semarang" },
   ],
 
   // ─── 👤 ABOUT ───

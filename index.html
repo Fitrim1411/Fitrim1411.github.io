@@ -15,7 +15,7 @@
 </head>
 <body>
 <!-- ?v= dinaikkan tiap kali data.js berubah, supaya browser tidak memakai salinan lama -->
-<script src="data.js?v=8"></script>
+<script src="data.js?v=9"></script>
 
 <style>
 /* Gaya "clay": kartu warna permen yang menggembung di atas meja periwinkle. */
@@ -95,8 +95,9 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
 
 /* ---------- hero ---------- */
 .hero{min-height:min(100vh,960px);display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:clamp(24px,4vw,64px);padding-top:110px;padding-bottom:48px}
-.hero h1 .hi{display:block;font-size:clamp(3.2rem,7.4vw,7rem)}
-.hero h1 .name{display:flex;font-size:clamp(4.4rem,12vw,10.5rem);line-height:1;margin:.04em 0 .2em -.02em}
+.hero h1 .hi{display:block;font-size:clamp(2.6rem,5.6vw,5.2rem)}
+.hero h1 .name{display:flex;flex-wrap:wrap;column-gap:.22em;font-size:clamp(3.2rem,7.6vw,7.2rem);line-height:1.02;margin:.06em 0 .2em -.02em}
+.name .w{display:flex;flex-basis:100%}
 .name span{display:inline-block;color:var(--c);transition:transform .35s cubic-bezier(.3,1.8,.5,1);
   text-shadow:0 2px 0 color-mix(in srgb,var(--c) 80%,#1a0b30),0 5px 0 color-mix(in srgb,var(--c) 66%,#1a0b30),0 16px 24px rgba(38,23,61,.28)}
 .name span:hover{transform:translateY(-10px) rotate(-6deg)}
@@ -132,10 +133,11 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
 /* ---------- toolkit marquee ---------- */
 .toolkit{margin-top:-24px}
 .marquee{overflow:hidden;padding:18px 0 26px;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-.track{display:flex;width:max-content;animation:slide 45s linear infinite}
+/* pan-y: geser vertikal tetap scroll halaman, geser horizontal menggeser deretan tools */
+.marquee{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.marquee.grab{cursor:grabbing}
+.track{display:flex;width:max-content}
 .track .chip{margin-right:14px;padding:.65em 1.3em;font-size:1rem;white-space:nowrap}
-.marquee:hover .track{animation-play-state:paused}
-@keyframes slide{to{translate:-50% 0}}
 
 /* ---------- projects ---------- */
 .feat{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(20px,3vw,40px);align-items:center;padding:clamp(20px,3vw,36px);border-radius:36px;cursor:pointer;margin-bottom:24px}
@@ -217,6 +219,7 @@ footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;paddin
 @media (max-width:980px){
   .hero{grid-template-columns:1fr;min-height:auto;padding-top:100px}
   .hero-art{max-width:480px}
+  .hero h1 .name{font-size:min(15vw,7.2rem)}
   .caps{grid-template-columns:1fr 1fr}
   .feat,.grid2,.about-grid,.grid2>.card:last-child:nth-child(odd){grid-template-columns:1fr}
   .contact .toy{display:none}
@@ -299,11 +302,12 @@ $('navLinks').onclick = () => { $('navLinks').classList.remove('open'); $('navMe
 
 // HERO
 const h = C.hero;
-const letters = [...C.logoFirst].map((ch, i) => '<span style="--c:' + PAL[i % PAL.length] + '">' + ch + '</span>').join('');
+let li = 0;  // warna huruf tetap berurutan lintas kata
+const letters = C.name.split(' ').map(w => '<span class="w">' + [...w].map(ch => '<span style="--c:' + PAL[li++ % PAL.length] + '">' + ch + '</span>').join('') + '</span>').join('');
 let cta = btn(h.buttons.primary.link, h.buttons.primary.text + ' →', 'var(--orange)') + btn(h.buttons.secondary.link, h.buttons.secondary.text);
 if (h.buttons.resume && C.resumeFile) cta += '<a class="btn" href="' + C.resumeFile + '" download style="--c:var(--mint)">Download CV ↓</a>';
 $('heroC').innerHTML =
-  '<h1 aria-label="Hi, I\'m ' + C.logoFirst + '"><span class="hi">Hi, I\'m</span><span class="name" aria-hidden="true">' + letters + '</span></h1>' +
+  '<h1 aria-label="Hi, I\'m ' + C.name + '"><span class="hi">Hi, I\'m</span><span class="name" aria-hidden="true">' + letters + '</span></h1>' +
   '<div class="chips">' + h.roles.map((r, i) => chip(r, ['var(--sun)','var(--pink)','var(--mint)','var(--sky)','var(--lilac)'][i % 5])).join('') + '</div>' +
   '<p class="bio">' + h.bio + '</p><div class="cta">' + cta + '</div>';
 const ST = [['right:0;top:24%','var(--mint)'],['left:0;top:56%','var(--pink)'],['right:8%;bottom:6%','var(--sky)']];
@@ -330,6 +334,27 @@ $('skillsC').innerHTML = toy('spark', 'var(--sun)', '88%', '-6%', '70px', 12, .9
 // TOOLKIT: diulang dua kali supaya geserannya nyambung tanpa jeda
 const tools = C.skills.categories.flatMap(c => c.items).map((t, i) => chip(t, ['var(--paper)','var(--sun)','var(--mint)','var(--sky)','var(--pink)','var(--lilac)'][i % 6])).join('');
 $('toolkitC').innerHTML = '<div class="wrap"><p class="eyebrow">Toolkit · ' + C.skills.title.replace(/\n/g, ' ') + '</p></div><div class="marquee"><div class="track">' + tools + tools + '</div></div>';
+// jalan sendiri, bisa digeser (drag, swipe, trackpad) dan meluncur sedikit saat dilepas
+{
+  const mq = document.querySelector('.marquee'), tr = mq.querySelector('.track');
+  const auto = matchMedia('(prefers-reduced-motion:reduce)').matches ? 0 : .5;
+  let off = 0, vel = 0, last = null, hover = false, half = 0;
+  const measure = () => half = tr.offsetWidth / 2;
+  measure(); addEventListener('resize', measure); document.fonts.ready.then(measure);
+  mq.onpointerdown = e => { last = e.clientX; vel = 0; mq.setPointerCapture(e.pointerId); mq.classList.add('grab'); };
+  mq.onpointermove = e => { if (last === null) return; vel = e.clientX - last; off += vel; last = e.clientX; };
+  mq.onpointerup = mq.onpointercancel = () => { last = null; mq.classList.remove('grab'); };
+  mq.onpointerenter = e => hover = e.pointerType === 'mouse';
+  mq.onpointerleave = () => hover = false;
+  mq.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); off -= e.deltaX; } }, {passive: false});
+  (function run() {
+    if (last === null) { off += vel; vel *= .94; if (!hover && Math.abs(vel) < .5) off -= auto; }
+    else vel *= .8;  // kalau ditahan diam lalu dilepas, tidak ikut meluncur
+    if (half) off = ((off % half) - half) % half;  // jaga di (-half, 0] supaya tak berujung
+    tr.style.translate = off + 'px 0';
+    requestAnimationFrame(run);
+  })();
+}
 
 // PROJECTS
 const ALLP = [C.projects.featured, ...C.projects.cards];
