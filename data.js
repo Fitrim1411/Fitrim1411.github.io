@@ -58,12 +58,12 @@ const CONFIG = {
   capabilities: {
     intro: "From the first dataset to a model running inside a native app, plus the networking know-how from my telecom roots.",
     items: [
-      { title: "Computer Vision",  text: "Detection, tracking, cross-camera re-ID and image restoration.",                toy: "ring"  },
+      { title: "Computer Vision",  text: "Detection, tracking, cross-camera re-ID and image restoration.",                toy: "lens"  },
       { title: "Speech & Audio",   text: "Real-time voice pipelines, from voice activity detection to spoken replies.",   toy: "mic"   },
       { title: "LLMs & RAG",       text: "Local LLMs and hybrid retrieval that stay grounded in your own material.",      toy: "chat"  },
       { title: "Predictive ML",    text: "Scraping, cleaning and training tabular models, then shipping them on device.", toy: "bars"  },
       { title: "iOS & macOS Apps", text: "Native SwiftUI apps that put the model where people actually use it.",          toy: "phone" },
-      { title: "Networking",       text: "LAN and WLAN deployment, Ruckus access points and PRTG monitoring.",            toy: "cube"  },
+      { title: "Networking",       text: "LAN and WLAN deployment, Ruckus access points and PRTG monitoring.",            toy: "wifi"  },
     ],
     closing: { title: "From raw data to a model in your pocket.", tag: "Telecom roots, AI focus" },
   },

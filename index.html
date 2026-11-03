@@ -15,7 +15,7 @@
 </head>
 <body>
 <!-- ?v= dinaikkan tiap kali data.js berubah, supaya browser tidak memakai salinan lama -->
-<script src="data.js?v=11"></script>
+<script src="data.js?v=12"></script>
 
 <style>
 /* Gaya "clay": kartu warna permen yang menggembung di atas meja periwinkle. */
@@ -70,10 +70,15 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
 .toy.chat{aspect-ratio:1.25}
 .toy.chat>i{border-radius:40% 40% 40% 10%/50% 50% 50% 12%;background:radial-gradient(circle at 26% 22%,rgba(255,255,255,.85) 0 6%,transparent 24%),linear-gradient(160deg,var(--l),var(--c) 45%,var(--d))}
 .toy.chat>i::after{content:'';position:absolute;inset:40% 18%;background:radial-gradient(circle,#fff 0 55%,transparent 60%) 0 50%/33.33% 100% repeat-x}
-.toy.mic>i{width:48%;height:70%;margin-inline:auto;border-radius:999px;background:radial-gradient(circle at 34% 22%,rgba(255,255,255,.85) 0 9%,transparent 30%),linear-gradient(90deg,var(--l),var(--c) 45%,var(--d))}
-.toy.mic>i::after{content:'';position:absolute;left:50%;top:104%;width:18%;height:34%;translate:-50% 0;border-radius:6px;background:var(--ink2)}
+.toy.mic>i{width:40%;height:56%;margin-inline:auto;border-radius:999px;background:radial-gradient(circle at 34% 22%,rgba(255,255,255,.85) 0 9%,transparent 30%),repeating-linear-gradient(rgba(26,11,48,.22) 0 3px,transparent 3px 8px) 0 8%/100% 50% no-repeat,linear-gradient(90deg,var(--l),var(--c) 45%,var(--d))}
+.toy.mic>i::before{content:'';position:absolute;inset:38% -30% -18%;border:5px solid var(--ink2);border-top:0;border-radius:0 0 999px 999px}
+.toy.mic>i::after{content:'';position:absolute;left:50%;top:118%;width:150%;height:44%;translate:-50% 0;background:linear-gradient(var(--ink2),var(--ink2)) 50% 0/14% 100% no-repeat,linear-gradient(var(--ink2),var(--ink2)) 50% 100%/100% 18% no-repeat}
+.toy.lens>i{border-radius:50%;background:radial-gradient(circle at 40% 36%,#fff 0 5%,transparent 9%),radial-gradient(circle at 60% 62%,rgba(160,200,255,.7) 0 3%,transparent 7%),radial-gradient(circle,#4b3a7a,#150a28 30%,#000 35%,var(--d) 37%,var(--l) 46%,var(--c) 58%,var(--d) 70%)}
+.toy.wifi>i::before{content:'';position:absolute;inset:0;clip-path:polygon(50% 92%,-8% 34%,-8% 0,108% 0,108% 34%);background:radial-gradient(circle at 50% 92%,transparent 18%,var(--l) 18% 20%,var(--c) 20% 30%,transparent 30% 41%,var(--l) 41% 43%,var(--c) 43% 53%,transparent 53% 64%,var(--l) 64% 66%,var(--c) 66% 76%,transparent 76%)}
+.toy.wifi>i::after{content:'';position:absolute;left:50%;top:92%;width:22%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle at 34% 30%,var(--l),var(--c) 50%,var(--d))}
 .toy.phone{aspect-ratio:.62}
 .toy.phone>i{border-radius:22%/14%;background:linear-gradient(150deg,#4a3a66,var(--ink))}
+.toy.phone>i::before{content:'';position:absolute;z-index:1;left:50%;top:10%;width:30%;height:5%;translate:-50% 0;border-radius:999px;background:var(--ink)}
 .toy.phone>i::after{content:'';position:absolute;inset:7% 9%;border-radius:16%/10%;background:linear-gradient(160deg,var(--l),var(--c) 60%,var(--d))}
 .toy.bars>i{display:flex;align-items:flex-end;gap:9%}
 .toy.bars b{flex:1;border-radius:999px;background:linear-gradient(90deg,var(--l),var(--c) 50%,var(--d))}
