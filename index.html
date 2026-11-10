@@ -15,7 +15,7 @@
 </head>
 <body>
 <!-- ?v= dinaikkan tiap kali data.js berubah, supaya browser tidak memakai salinan lama -->
-<script src="data.js?v=12"></script>
+<script src="data.js?v=13"></script>
 
 <style>
 /* Gaya "clay": kartu warna permen yang menggembung di atas meja periwinkle. */
@@ -60,7 +60,10 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
 /* ---------- toys: mainan clay dari CSS murni, tanpa gambar ---------- */
 .toy{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:1;rotate:var(--r,0deg);pointer-events:none;z-index:3;
   filter:drop-shadow(0 14px 14px rgba(38,23,61,.28));--d:color-mix(in srgb,var(--c) 62%,#1a0b30);--l:color-mix(in srgb,var(--c) 55%,#fff)}
-.toy>i{display:block;position:relative;width:100%;height:100%;animation:bob 6s ease-in-out infinite var(--dl,0s)}
+.toy>i{display:block;position:relative;width:100%;height:100%;animation:bob 6s ease-in-out infinite var(--dl,0s);transition:scale .3s cubic-bezier(.3,1.8,.5,1)}
+@media (pointer:fine){.toy[data-depth]{pointer-events:auto;cursor:grab;touch-action:none}}
+.toy.grab{cursor:grabbing;z-index:20}
+.toy.grab>i{scale:1.2 .88}
 @keyframes bob{50%{transform:translateY(-7%) rotate(5deg)}}
 .toy.ball>i{border-radius:50%;background:radial-gradient(circle at 33% 28%,rgba(255,255,255,.9) 0 7%,transparent 26%),radial-gradient(circle at 42% 38%,var(--l),var(--c) 45%,var(--d))}
 .toy.ring>i{border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.85) 0 5%,transparent 16%),radial-gradient(circle,var(--d) 31%,var(--l) 42%,var(--c) 52%,var(--d) 70%);
@@ -459,9 +462,13 @@ if (matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion
   const toys = [...document.querySelectorAll('[data-depth]')].map(el => ({el, d: +el.dataset.depth, rep: el.classList.contains('toy'), x: 0, y: 0, vx: 0, vy: 0}));
   let mx = -1e4, my = -1e4, px = 0, py = 0;
   addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; px = mx / innerWidth - .5; py = my / innerHeight - .5; });
+  // mainan bisa digenggam & dilempar; dilepas, pegas menariknya balik dengan memantul
+  for (const t of toys) if (t.rep) t.el.onpointerdown = e => { e.preventDefault(); t.el.setPointerCapture(e.pointerId); t.g = [e.clientX - t.x, e.clientY - t.y]; t.el.classList.add('grab'); };
+  addEventListener('pointerup', () => { for (const t of toys) if (t.g) { t.g = null; t.el.classList.remove('grab'); } });
   (function tick() {
     for (const t of toys) {
       const r = t.el.getBoundingClientRect();
+      if (t.g) { const nx = mx - t.g[0], ny = my - t.g[1]; t.vx = nx - t.x; t.vy = ny - t.y; t.x = nx; t.y = ny; t.el.style.translate = t.x + 'px ' + t.y + 'px'; continue; }
       if (r.bottom < -100 || r.top > innerHeight + 100) continue;
       let tx = -px * 36 * t.d, ty = -py * 36 * t.d;
       if (t.rep) {
