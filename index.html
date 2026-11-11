@@ -351,7 +351,7 @@ $('heroArt').innerHTML = '<div class="sun"></div>' +
 
 // WHAT I DO
 const K = C.capabilities, CAPC = ['var(--sun)','var(--pink)','var(--sky)','var(--mint)','var(--lilac)','var(--orange)'];
-$('skillsC').innerHTML = toy('spark', 'var(--sun)', '88%', '-6%', '70px', 12, .9) +
+$('skillsC').innerHTML =
   '<div class="head pop"><div><p class="eyebrow">Capabilities</p><h2>What I do</h2></div><p class="side">' + K.intro + '</p></div>' +
   '<div class="caps">' + K.items.map((k, i) =>
     '<div class="cap clay pop" style="--c:' + CAPC[i % 6] + ';--dl:' + (i % 4) * .08 + 's"><span class="num">0' + (i + 1) + '</span>' +
