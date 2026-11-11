@@ -73,7 +73,9 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
 .toy{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:1;rotate:var(--r,0deg);pointer-events:none;z-index:3;
   filter:drop-shadow(0 14px 14px rgba(38,23,61,.28));--d:color-mix(in srgb,var(--c) 62%,#1a0b30);--l:color-mix(in srgb,var(--c) 55%,#fff)}
 .toy>i{display:block;position:relative;width:100%;height:100%;animation:bob 6s ease-in-out infinite var(--dl,0s);transition:scale .3s cubic-bezier(.3,1.8,.5,1)}
-@media (pointer:fine){.toy[data-depth]{pointer-events:auto;cursor:grab;touch-action:none}}
+@media (pointer:fine){.toy[data-depth]{pointer-events:auto;cursor:grab;touch-action:none}.toy[data-depth]:hover>i{scale:1.12}}
+.hint{position:absolute;left:50%;bottom:-6%;translate:-50% 0;margin:0;font-size:.85rem;font-weight:700;color:var(--ink2);white-space:nowrap;transition:opacity .4s}
+@media (pointer:coarse){.hint{display:none}}
 .toy.grab{cursor:grabbing;z-index:20}
 .toy.grab>i{scale:1.2 .88}
 @keyframes bob{50%{transform:translateY(-7%) rotate(5deg)}}
@@ -276,7 +278,7 @@ footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;paddin
     <a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#research">Research</a><a href="#about">About</a><a href="#contact">Contact</a>
   </div>
   <div class="nav-social" id="navSocial"></div>
-  <button class="btn ico" id="theme" aria-label="Ganti tema">☾</button>
+  <button class="btn ico" id="theme" aria-label="Ganti tema" style="--c:var(--lilac)">☾</button>
   <button class="btn ico nav-menu" id="navMenu" aria-label="Menu" aria-expanded="false">☰</button>
 </nav>
 
@@ -303,10 +305,10 @@ const ICON = {
   Instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
   Email:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>',
 };
-const LINK_C = {Email:'var(--sun)',LinkedIn:'var(--sky)',GitHub:'var(--paper)',Instagram:'var(--pink)'};
+const LINK_C = {Email:'var(--sun)',LinkedIn:'var(--sky)',GitHub:'var(--grape)',Instagram:'var(--pink)'};
 const link = l => C.contact.links.find(x => x.label === l);
 
-// mainan clay: depth = ikut bergerak menjauhi kursor (parallax + tolak)
+// mainan clay: depth = ikut bergerak menjauhi kursor (parallax)
 function toy(kind, c, x, y, w, r = 0, depth = 0, dl = 0) {
   const inner = kind === 'bars' ? '<b></b><b></b><b></b>' : '';
   return '<div class="toy ' + kind + '"' + (depth ? ' data-depth="' + depth + '"' : '') + ' aria-hidden="true" style="--c:' + c + ';--x:' + x + ';--y:' + y + ';--w:' + w + ';--r:' + r + 'deg;--dl:-' + dl + 's"><i>' + inner + '</i></div>';
@@ -344,7 +346,8 @@ $('heroArt').innerHTML = '<div class="sun"></div>' +
   toy('cube', 'var(--mint)', '80%', '2%', '12%', 14, .8, 1) +
   toy('ring', 'var(--pink)', '50%', '82%', '14%', 0, 1, 3) +
   toy('ball', 'var(--orange)', '88%', '62%', '9%', 0, 1.4, 4) +
-  toy('ball', 'var(--sky)', '20%', '86%', '7%', 0, 1.6, 2);
+  toy('ball', 'var(--sky)', '20%', '86%', '7%', 0, 1.6, 2) +
+  '<p class="hint" id="hint">psst… mainannya bisa ditarik ✋</p>';
 
 // WHAT I DO
 const K = C.capabilities, CAPC = ['var(--sun)','var(--pink)','var(--sky)','var(--mint)','var(--lilac)','var(--orange)'];
@@ -474,12 +477,12 @@ if (matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion
       el.style.transform = 'perspective(800px) rotateX(' + (-y * 10) + 'deg) rotateY(' + (x * 10) + 'deg)'; };
     el.onpointerleave = () => el.style.transform = '';
   });
-  // mainan: parallax ikut kursor + menghindar kalau didekati, digerakkan pegas supaya terasa kenyal
+  // mainan: parallax ikut kursor, digerakkan pegas supaya terasa kenyal
   const toys = [...document.querySelectorAll('[data-depth]')].map(el => ({el, d: +el.dataset.depth, rep: el.classList.contains('toy'), x: 0, y: 0, vx: 0, vy: 0}));
   let mx = -1e4, my = -1e4, px = 0, py = 0;
   addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; px = mx / innerWidth - .5; py = my / innerHeight - .5; });
   // mainan bisa digenggam & dilempar; dilepas, pegas menariknya balik dengan memantul
-  for (const t of toys) if (t.rep) t.el.onpointerdown = e => { e.preventDefault(); t.el.setPointerCapture(e.pointerId); t.g = [e.clientX - t.x, e.clientY - t.y]; t.el.classList.add('grab'); };
+  for (const t of toys) if (t.rep) t.el.onpointerdown = e => { e.preventDefault(); t.el.setPointerCapture(e.pointerId); t.g = [e.clientX - t.x, e.clientY - t.y]; t.el.classList.add('grab'); $('hint').style.opacity = 0; };
   addEventListener('pointerup', () => { for (const t of toys) if (t.g) { t.g = null; t.el.classList.remove('grab'); } });
   (function tick() {
     for (const t of toys) {
@@ -487,10 +490,6 @@ if (matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion
       if (t.g) { const nx = mx - t.g[0], ny = my - t.g[1]; t.vx = nx - t.x; t.vy = ny - t.y; t.x = nx; t.y = ny; t.el.style.translate = t.x + 'px ' + t.y + 'px'; continue; }
       if (r.bottom < -100 || r.top > innerHeight + 100) continue;
       let tx = -px * 36 * t.d, ty = -py * 36 * t.d;
-      if (t.rep) {
-        const dx = r.left + r.width / 2 - t.x - mx, dy = r.top + r.height / 2 - t.y - my, dist = Math.hypot(dx, dy) || 1, R = 140 + r.width / 2;
-        if (dist < R) { const f = (1 - dist / R) * 70; tx += dx / dist * f; ty += dy / dist * f; }
-      }
       t.vx = (t.vx + (tx - t.x) * .07) * .84; t.vy = (t.vy + (ty - t.y) * .07) * .84;
       t.x += t.vx; t.y += t.vy;
       t.el.style.translate = t.x.toFixed(1) + 'px ' + t.y.toFixed(1) + 'px';
