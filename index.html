@@ -83,9 +83,6 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
 .toy.ring>i{border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.85) 0 5%,transparent 16%),radial-gradient(circle,var(--d) 31%,var(--l) 42%,var(--c) 52%,var(--d) 70%);
   -webkit-mask:radial-gradient(circle,transparent 30%,#000 31% 69%,transparent 70%);mask:radial-gradient(circle,transparent 30%,#000 31% 69%,transparent 70%)}
 .toy.spark>i{clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);background:radial-gradient(circle at 40% 36%,var(--l),var(--c) 35%,var(--d) 80%)}
-.toy.cpu>i{container-type:inline-size;background:repeating-linear-gradient(90deg,var(--d) 0 9%,transparent 9% 23%) 50%/60% 100% no-repeat,repeating-linear-gradient(var(--d) 0 9%,transparent 9% 23%) 50%/100% 60% no-repeat}
-.toy.cpu>i::before{content:'';position:absolute;inset:12%;border-radius:22%;background:radial-gradient(circle at 26% 22%,rgba(255,255,255,.8) 0 6%,transparent 24%),linear-gradient(145deg,var(--l),var(--c) 45%,var(--d))}
-.toy.cpu>i::after{content:'AI';position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:30cqw;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.25)}
 .toy.cube>i{border-radius:28%;background:radial-gradient(circle at 26% 22%,rgba(255,255,255,.8) 0 6%,transparent 24%),linear-gradient(145deg,var(--l),var(--c) 45%,var(--d))}
 .toy.chat{aspect-ratio:1.25}
 .toy.chat>i{border-radius:40% 40% 40% 10%/50% 50% 50% 12%;background:radial-gradient(circle at 26% 22%,rgba(255,255,255,.85) 0 6%,transparent 24%),linear-gradient(160deg,var(--l),var(--c) 45%,var(--d))}
@@ -346,7 +343,7 @@ $('heroArt').innerHTML = '<div class="sun"></div>' +
   C.about.stats.slice(0, 3).map((s, i) => '<div class="stat clay" data-depth=".5" style="' + ST[i][0] + ';--c:' + ST[i][1] + '"><b>' + s.number + '</b><span>' + s.label + '</span></div>').join('') +
   toy('spark', 'var(--grape)', '4%', '4%', '17%', -8, 1.2) +
   toy('chat', 'var(--sky)', '-2%', '28%', '21%', -6, .9, 2) +
-  toy('cpu', 'var(--mint)', '80%', '2%', '13%', 14, .8, 1) +
+  toy('ball', 'var(--mint)', '80%', '2%', '11%', 0, .8, 1) +
   toy('ring', 'var(--pink)', '50%', '82%', '14%', 0, 1, 3) +
   toy('ball', 'var(--orange)', '88%', '62%', '9%', 0, 1.4, 4) +
   toy('ball', 'var(--sky)', '20%', '86%', '7%', 0, 1.6, 2) +
