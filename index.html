@@ -74,8 +74,6 @@ section{padding:clamp(64px,9vw,120px) 0;position:relative}
   filter:drop-shadow(0 14px 14px rgba(38,23,61,.28));--d:color-mix(in srgb,var(--c) 62%,#1a0b30);--l:color-mix(in srgb,var(--c) 55%,#fff)}
 .toy>i{display:block;position:relative;width:100%;height:100%;animation:bob 6s ease-in-out infinite var(--dl,0s);transition:scale .3s cubic-bezier(.3,1.8,.5,1)}
 @media (pointer:fine){.toy[data-depth],.stat{pointer-events:auto;cursor:grab;touch-action:none}.toy[data-depth]:hover>i,.stat:hover{scale:1.12}}
-.hint{position:absolute;left:50%;bottom:-6%;translate:-50% 0;margin:0;font-size:.85rem;font-weight:700;color:var(--ink2);white-space:nowrap;transition:opacity .4s}
-@media (pointer:coarse){.hint{display:none}}
 .grab{cursor:grabbing!important;z-index:20}
 .toy.grab>i,.stat.grab{scale:1.2 .88}
 @keyframes bob{50%{transform:translateY(-7%) rotate(5deg)}}
@@ -346,8 +344,7 @@ $('heroArt').innerHTML = '<div class="sun"></div>' +
   toy('ball', 'var(--mint)', '80%', '2%', '11%', 0, .8, 1) +
   toy('ring', 'var(--pink)', '50%', '82%', '14%', 0, 1, 3) +
   toy('ball', 'var(--orange)', '88%', '62%', '9%', 0, 1.4, 4) +
-  toy('ball', 'var(--sky)', '20%', '86%', '7%', 0, 1.6, 2) +
-  '<p class="hint" id="hint">psst… mainannya bisa ditarik ✋</p>';
+  toy('ball', 'var(--sky)', '20%', '86%', '7%', 0, 1.6, 2);
 
 // WHAT I DO
 const K = C.capabilities, CAPC = ['var(--sun)','var(--pink)','var(--sky)','var(--mint)','var(--lilac)','var(--orange)'];
@@ -482,7 +479,7 @@ if (matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion
   let mx = -1e4, my = -1e4, px = 0, py = 0;
   addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; px = mx / innerWidth - .5; py = my / innerHeight - .5; });
   // mainan bisa digenggam & dilempar; dilepas, pegas menariknya balik dengan memantul
-  for (const t of toys) t.el.onpointerdown = e => { e.preventDefault(); t.el.setPointerCapture(e.pointerId); t.g = [e.clientX - t.x, e.clientY - t.y]; t.el.classList.add('grab'); $('hint').style.opacity = 0; };
+  for (const t of toys) t.el.onpointerdown = e => { e.preventDefault(); t.el.setPointerCapture(e.pointerId); t.g = [e.clientX - t.x, e.clientY - t.y]; t.el.classList.add('grab'); };
   addEventListener('pointerup', () => { for (const t of toys) if (t.g) { t.g = null; t.el.classList.remove('grab'); } });
   (function tick() {
     for (const t of toys) {
